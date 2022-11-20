@@ -1,0 +1,37 @@
+﻿@model Accident
+
+<form method="post" asp-action="Create">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Create Accident</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="ContractId"></label>
+            <input asp-for="ContractId" class="form-control" />
+            <span asp-validation-for="ContractId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="DateDtp"></label>
+            <input asp-for="DateDtp" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Collisions"></label>
+            <input asp-for="Collisions" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Result"></label>
+            <input asp-for="Result" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+        <a asp-controller="Accident" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Back to List
+        </a>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

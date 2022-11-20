@@ -1,0 +1,46 @@
+﻿@model Contract
+
+<form method="post" asp-action="Create">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Create Contract</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="DateContract"></label>
+            <input asp-for="DateContract" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="DateEnd"></label>
+            <input asp-for="DateEnd" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="ClientID"></label>
+            <input asp-for="ClientID" class="form-control" />
+            <span asp-validation-for="ClientID" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="CarId"></label>
+            <input asp-for="CarId" class="form-control" />
+            <span asp-validation-for="CarId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ContractDays"></label>
+            <input asp-for="ContractDays" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Price"></label>
+            <input asp-for="Price" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+        <a asp-controller="Contract" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Back to List
+        </a>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
