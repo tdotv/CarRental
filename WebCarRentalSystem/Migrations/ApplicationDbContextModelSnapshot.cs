@@ -150,7 +150,7 @@ namespace WebCarRentalSystem.Migrations
                     b.Property<string>("DYears")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("HomeAddres")
+                    b.Property<string>("HomeAddress")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Passport")
@@ -213,13 +213,29 @@ namespace WebCarRentalSystem.Migrations
                     b.Property<string>("Class")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("EngineValue")
+                        .HasColumnType("real");
+
+                    b.Property<float>("FuelConsumption")
+                        .HasColumnType("real");
+
                     b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ManufactureYear")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Marka")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Transmission")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

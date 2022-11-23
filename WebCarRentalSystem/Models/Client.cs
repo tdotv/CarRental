@@ -14,8 +14,8 @@ namespace WebCarRentalSystem.Models
 
         public decimal Rating { get; set; }
 
-        [DisplayName("Home Addres")]
-        public string? HomeAddres { get; set; }
+        [DisplayName("Home Address")]
+        public string? HomeAddress { get; set; }
 
         public decimal Telephone { get; set; }
 

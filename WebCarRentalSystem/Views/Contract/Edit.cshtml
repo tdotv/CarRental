@@ -9,10 +9,12 @@
         <div class="mb-3">
             <label asp-for="DateContract"></label>
             <input asp-for="DateContract" class="form-control" />
+            <span asp-validation-for="DateContract" class="text-danger"></span>
         </div>
         <div class="mb-3">
             <label asp-for="DateEnd"></label>
             <input asp-for="DateEnd" class="form-control" />
+            <span asp-validation-for="DateEnd" class="text-danger"></span>
         </div>
         <div class="mb-3">
             <label asp-for="ClientID"></label>

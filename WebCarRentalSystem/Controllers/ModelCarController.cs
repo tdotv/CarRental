@@ -1,103 +1,158 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebCarRentalSystem.Areas.Identity.Data;
+using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
+using WebCarRentalSystem.ViewModels;
 
 namespace WebCarRentalSystem.Controllers
 {
     public class ModelCarController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        public ModelCarController(ApplicationDbContext context)
+        private readonly IModelCarRepository _modelRepository;
+        private readonly IPhotoService _photoService;
+        public ModelCarController(IModelCarRepository modelRepository, IPhotoService photoService)
         {
-            _context = context;
+            _modelRepository = modelRepository;
+            _photoService = photoService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            IEnumerable<ModelCar> objCategoryList = _context.ModelCar;
-            return View(objCategoryList);
+            IEnumerable<ModelCar> models = await _modelRepository.GetAll();
+            return View(models);
         }
 
-        // GET
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(ModelCar obj)
+        public async Task<IActionResult> Create(CreateModelCarViewModel modelVM)
         {
             if (ModelState.IsValid)
             {
-                _context.ModelCar.Add(obj);
-                _context.SaveChanges();
+                var result = await _photoService.AddPhotoAsync(modelVM.Image);
+
+                var model = new ModelCar
+                {
+                    Class = modelVM.Class,
+                    Model = modelVM.Model,
+                    Marka = modelVM.Marka,
+                    Description = modelVM.Description,
+                    FuelConsumption = modelVM.FuelConsumption,
+                    Transmission = modelVM.Transmission,
+                    EngineValue = modelVM.EngineValue,
+                    ManufactureYear = modelVM.ManufactureYear,
+                    Image = result.Url.ToString()
+                };
+                _modelRepository.Add(model);
                 TempData["success"] = "Model created successfully";
                 return RedirectToAction("Index");
             }
-            return View(obj);
+            else
+            {
+                ModelState.AddModelError("", "Photo upload failed");
+            }
+            return View(modelVM);
         }
 
-        // GET
-        public IActionResult Edit(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == 0 || id == null)
+            var model = await _modelRepository.GetByIdAsync(id);
+            if (model == null) { return View("Error"); }
+            var modelVM = new EditModelCarViewModel
             {
-                return NotFound();
-            }
-            var carFromDb = _context.ModelCar.Find(id);
-
-            if (carFromDb == null)
-            {
-                return NotFound();
-            }
-            return View();
+                Class = model.Class,
+                Model = model.Model,
+                Marka = model.Marka,
+                Description = model.Description,
+                FuelConsumption = model.FuelConsumption,
+                Transmission = model.Transmission,
+                EngineValue = model.EngineValue,
+                ManufactureYear = model.ManufactureYear,
+                URL = model.Image
+            };
+            return View(modelVM);
         }
 
-        // POST
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(ModelCar obj)
+        public async Task<IActionResult> Edit(int id, EditModelCarViewModel modelVM)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.ModelCar.Update(obj);
-                _context.SaveChanges();
+                ModelState.AddModelError("", "Failed to edit model");
+                return View("Edit", modelVM);
+            }
+            var userModel = await _modelRepository.GetByIdAsyncNoTracking(id);
+            if (userModel != null)
+            {
+                try
+                {
+                    await _photoService.DeletePhotoAsync(userModel.Image);
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError("", "Could not delete photo");
+                    return View(modelVM);
+                }
+                var photoResult = await _photoService.AddPhotoAsync(modelVM.Image);
+
+                var model = new ModelCar
+                {
+                    Id = id,
+                    Class = modelVM.Class,
+                    Model = modelVM.Model,
+                    Marka = modelVM.Marka,
+                    Description = modelVM.Description,
+                    FuelConsumption = modelVM.FuelConsumption,
+                    Transmission = modelVM.Transmission,
+                    EngineValue = modelVM.EngineValue,
+                    ManufactureYear = modelVM.ManufactureYear,
+                    Image = photoResult.Url.ToString()
+                };
+                _modelRepository.Edit(model);
                 TempData["success"] = "Model updated successfully";
                 return RedirectToAction("Index");
             }
-            return View(obj);
+            else
+            {
+                return View(modelVM);
+            }
         }
 
-        // GET
-        public IActionResult Delete(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == 0 || id == null)
-            {
-                return NotFound();
-            }
-            var carFromDb = _context.ModelCar.Find(id);
-
-            if (carFromDb == null)
-            {
-                return NotFound();
-            }
-            return View();
+            var modelDetails = await _modelRepository.GetByIdAsync(id);
+            if (modelDetails == null) return View("Error");
+            return View(modelDetails);
         }
 
-        // POST
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeletePOST(int? id)
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteModel(int id)
         {
-            var obj = _context.ModelCar.Find(id);
-            if (obj == null) { return NotFound(); }
+            var modelDetails = await _modelRepository.GetByIdAsync(id);
 
-            _context.ModelCar.Remove(obj);
-            _context.SaveChanges();
-            TempData["success"] = "Model deleted successfully";
+            if (modelDetails == null)
+            {
+                return View("Error");
+            }
+
+            if (!string.IsNullOrEmpty(modelDetails.Image))
+            {
+                _ = _photoService.DeletePhotoAsync(modelDetails.Image);
+            }
+
+            _modelRepository.Delete(modelDetails);
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Detail(int id)
+        {
+            ModelCar model = await _modelRepository.GetByIdAsync(id);
+            return View(model);
         }
 
     }

@@ -13,8 +13,8 @@ namespace WebCarRentalSystem.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<Accident> objCategoryList = _context.Accident;
-            return View(objCategoryList);
+            List<Accident> accidents = _context.Accident.ToList();
+            return View(accidents);
         }
 
         // GET

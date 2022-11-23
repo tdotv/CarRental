@@ -10,7 +10,7 @@ namespace WebCarRentalSystem.Models
         public int Id { get; set; }
 
         [DisplayName("Date Contract")]
-        public DateTime DateContract { get; set; } = DateTime.Now;
+        public DateTime DateContract { get; set; }
 
         [DisplayName("Date End")]
         public DateTime DateEnd { get; set; }

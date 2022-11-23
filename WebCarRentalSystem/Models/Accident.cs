@@ -14,8 +14,10 @@ namespace WebCarRentalSystem.Models
         public int ContractId { get; set; }
         public Contract? Contract { get; set; }
 
+        //[DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [DisplayName("Dtp Date")]
-        public DateTime DateDtp { get; set; } = DateTime.Now;
+        public DateTime DateDtp { get; set; }
 
         public string? Collisions { get; set; }
 

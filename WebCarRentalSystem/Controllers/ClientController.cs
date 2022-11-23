@@ -15,8 +15,8 @@ namespace WebCarRentalSystem.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Client> objCategoryList = _context.Client;
-            return View(objCategoryList);
+            List<Client> clients = _context.Client.ToList();
+            return View(clients);
         }
 
         // GET

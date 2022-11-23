@@ -294,3 +294,4 @@ E:\Работа\CourseWorkOOP\WebCarRentalSystem\WebCarRentalSystem\bin\Debug\ne
 E:\Работа\CourseWorkOOP\WebCarRentalSystem\WebCarRentalSystem\bin\Debug\net6.0\System.Text.Encodings.Web.dll
 E:\Работа\CourseWorkOOP\WebCarRentalSystem\WebCarRentalSystem\bin\Debug\net6.0\System.Text.Json.dll
 E:\Работа\CourseWorkOOP\WebCarRentalSystem\WebCarRentalSystem\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+E:\Работа\CourseWorkOOP\WebCarRentalSystem\WebCarRentalSystem\bin\Debug\net6.0\CloudinaryDotNet.dll
