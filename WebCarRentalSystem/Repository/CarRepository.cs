@@ -42,6 +42,11 @@ namespace WebCarRentalSystem.Repository
             return await _context.Car.FirstOrDefaultAsync(i => i.Id == id);
         }
 
+        public async Task<Car> GetByIdAsyncNoTracking(int id)
+        {
+            return await _context.Car.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+        }
+
         //?????????
         public async Task<IEnumerable<Car>> GetCarByRegNum(string CarRegNumber)
         {
@@ -49,10 +54,15 @@ namespace WebCarRentalSystem.Repository
         }
         //-------------------------------------------------------------------------------------
 
-        public async Task<IEnumerable<Car>> GetModelMarka(string model)
+        public async Task<IEnumerable<Car>> GetModel(string model)
         {
             return await _context.Car.Where(c => c.Model.Model.Contains(model)).ToListAsync();
         }
+        public async Task<IEnumerable<Car>> GetMarka(string model)
+        {
+            return await _context.Car.Where(c => c.Model.Marka.Contains(model)).ToListAsync();
+        }
+        //-------------------------------------------------------------------------------------
 
         public bool Save()
         {

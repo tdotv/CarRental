@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
-using WebCarRentalSystem.ViewModels;
+using WebCarRentalSystem.ViewModels.ModelCar;
 
 namespace WebCarRentalSystem.Controllers
 {
@@ -146,6 +146,7 @@ namespace WebCarRentalSystem.Controllers
             }
 
             _modelRepository.Delete(modelDetails);
+            TempData["success"] = "Model deleted successfully";
             return RedirectToAction("Index");
         }
 
@@ -154,6 +155,5 @@ namespace WebCarRentalSystem.Controllers
             ModelCar model = await _modelRepository.GetByIdAsync(id);
             return View(model);
         }
-
     }
 }

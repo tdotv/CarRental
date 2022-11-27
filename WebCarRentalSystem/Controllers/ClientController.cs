@@ -1,102 +1,120 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebCarRentalSystem.Areas.Identity.Data;
+using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
+using WebCarRentalSystem.ViewModels.Client;
 
 namespace WebCarRentalSystem.Controllers
 {
     public class ClientController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        public ClientController(ApplicationDbContext context)
+        private readonly IClientRepository _clientRepository;
+        public ClientController(IClientRepository clientRepository)
         {
-            _context = context;
+            _clientRepository = clientRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Client> clients = _context.Client.ToList();
+            IEnumerable<Client> clients = await _clientRepository.GetAll();
             return View(clients);
         }
 
-        // GET
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Client obj)
+        public IActionResult Create(CreateClientViewModel clientVM)
         {
             if (ModelState.IsValid)
             {
-                _context.Client.Add(obj);
-                _context.SaveChanges();
+                var client = new Client
+                {
+                    Passport = clientVM.Passport,
+                    DYears = clientVM.DYears,
+                    Rating = clientVM.Rating,
+                    HomeAddress = clientVM.HomeAddress,
+                    Telephone = clientVM.Telephone
+                };
+                _clientRepository.Add(client);
                 TempData["success"] = "Client created successfully";
                 return RedirectToAction("Index");
             }
-            return View(obj);
+            else
+            {
+                ModelState.AddModelError("", "Can't create new client");
+            }
+            return View(clientVM);
         }
 
-        // GET
-        public IActionResult Edit(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == 0 || id == null)
+            var client = await _clientRepository.GetByIdAsync(id);
+            if (client == null) { return View("Error"); }
+            var clientVM = new EditClientViewModel
             {
-                return NotFound();
-            }
-            var carFromDb = _context.Client.Find(id);
-
-            if (carFromDb == null)
-            {
-                return NotFound();
-            }
-            return View();
+                Passport = client.Passport,
+                DYears = client.DYears,
+                Rating = client.Rating,
+                HomeAddress = client.HomeAddress,
+                Telephone = client.Telephone
+            };
+            return View(clientVM);
         }
 
-        // POST
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(Client obj)
+        public async Task<IActionResult> Edit(int id, EditClientViewModel clientVM)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Client.Update(obj);
-                _context.SaveChanges();
+                ModelState.AddModelError("", "Failed to edit client");
+                return View("Edit", clientVM);
+            }
+            var clientModel = await _clientRepository.GetByIdAsyncNoTracking(id);
+            if (clientModel != null)
+            {
+                var client = new Client
+                {
+                    Id = id,
+                    Passport = clientVM.Passport,
+                    DYears = clientVM.DYears,
+                    Rating = clientVM.Rating,
+                    HomeAddress = clientVM.HomeAddress,
+                    Telephone = clientVM.Telephone
+                };
+                _clientRepository.Edit(client);
                 TempData["success"] = "Client updated successfully";
                 return RedirectToAction("Index");
             }
-            return View(obj);
+            else
+            {
+                return View(clientVM);
+            }
         }
 
-        // GET
-        public IActionResult Delete(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == 0 || id == null)
-            {
-                return NotFound();
-            }
-            var carFromDb = _context.Client.Find(id);
-
-            if (carFromDb == null)
-            {
-                return NotFound();
-            }
-            return View();
+            var clientDetails = await _clientRepository.GetByIdAsync(id);
+            if (clientDetails == null) return View("Error");
+            return View(clientDetails);
         }
 
-        // POST
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeletePOST(int? id)
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteClient(int id)
         {
-            var obj = _context.Client.Find(id);
-            if (obj == null) { return NotFound(); }
+            var clientDetails = await _clientRepository.GetByIdAsync(id);
 
-            _context.Client.Remove(obj);
-            _context.SaveChanges();
+            if (clientDetails == null)
+            {
+                return View("Error");
+            }
+
+            _clientRepository.Delete(clientDetails);
             TempData["success"] = "Client deleted successfully";
             return RedirectToAction("Index");
         }

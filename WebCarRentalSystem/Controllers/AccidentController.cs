@@ -1,104 +1,119 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebCarRentalSystem.Areas.Identity.Data;
+using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
+using WebCarRentalSystem.ViewModels.Accident;
+using WebCarRentalSystem.ViewModels.Client;
 
 namespace WebCarRentalSystem.Controllers
 {
     public class AccidentController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        public AccidentController(ApplicationDbContext context) 
+        private readonly IAccidentRepository _accidentRepository;
+        public AccidentController(IAccidentRepository accidentRepository)
         {
-            _context = context;
+            _accidentRepository = accidentRepository;
         }
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
-            List<Accident> accidents = _context.Accident.ToList();
+            IEnumerable<Accident> accidents = await _accidentRepository.GetAll();
             return View(accidents);
         }
 
-        // GET
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Accident obj)
+        public IActionResult Create(CreateAccidentViewModel accidentVM)
         {
             if (ModelState.IsValid)
             {
-                _context.Accident.Add(obj);
-                _context.SaveChanges();
+                var accident = new Accident
+                {
+                    ContractId = accidentVM.ContractId,
+                    DateDtp = accidentVM.DateDtp,
+                    Collisions = accidentVM.Collisions,
+                    Result = accidentVM.Result
+                };
+                _accidentRepository.Add(accident);
                 TempData["success"] = "Accident created successfully";
                 return RedirectToAction("Index");
             }
-            return View(obj);
+            else
+            {
+                ModelState.AddModelError("", "Can't create new accident");
+            }
+            return View(accidentVM);
         }
 
-        // GET
-        public IActionResult Edit(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == 0 || id == null)
+            var accident = await _accidentRepository.GetByIdAsync(id);
+            if (accident == null) { return View("Error"); }
+            var accidentVM = new EditAccidentViewModel
             {
-                return NotFound();
-            }
-            var carFromDb = _context.Accident.Find(id);
-
-            if (carFromDb == null)
-            {
-                return NotFound();
-            }
-            return View();
+                ContractId = accident.ContractId,
+                DateDtp = accident.DateDtp,
+                Collisions = accident.Collisions,
+                Result = accident.Result
+            };
+            return View(accidentVM);
         }
 
-        // POST
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(Accident obj)
+        public async Task<IActionResult> Edit(int id, EditAccidentViewModel accidentVM)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Accident.Update(obj);
-                _context.SaveChanges();
+                ModelState.AddModelError("", "Failed to edit client");
+                return View("Edit", accidentVM);
+            }
+            var accidentModel = await _accidentRepository.GetByIdAsyncNoTracking(id);
+            if (accidentModel != null)
+            {
+                var accident = new Accident
+                {
+                    Id = id,
+                    ContractId = accidentVM.ContractId,
+                    DateDtp = accidentVM.DateDtp,
+                    Collisions = accidentVM.Collisions,
+                    Result = accidentVM.Result
+                };
+                _accidentRepository.Edit(accident);
                 TempData["success"] = "Accident updated successfully";
                 return RedirectToAction("Index");
             }
-            return View(obj);
+            else
+            {
+                return View(accidentVM);
+            }
         }
 
-        // GET
-        public IActionResult Delete(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == 0 || id == null)
-            {
-                return NotFound();
-            }
-            var carFromDb = _context.Accident.Find(id);
-
-            if (carFromDb == null)
-            {
-                return NotFound();
-            }
-            return View();
+            var accidentDetails = await _accidentRepository.GetByIdAsync(id);
+            if (accidentDetails == null) return View("Error");
+            return View(accidentDetails);
         }
 
-        // POST
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeletePOST(int? id)
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteAccident(int id)
         {
-            var obj = _context.Accident.Find(id);
-            if (obj == null) { return NotFound(); }
+            var accidentDetails = await _accidentRepository.GetByIdAsync(id);
 
-            _context.Accident.Remove(obj);
-            _context.SaveChanges();
+            if (accidentDetails == null)
+            {
+                return View("Error");
+            }
+
+            _accidentRepository.Delete(accidentDetails);
             TempData["success"] = "Accident deleted successfully";
             return RedirectToAction("Index");
         }
-
-
     }
 }

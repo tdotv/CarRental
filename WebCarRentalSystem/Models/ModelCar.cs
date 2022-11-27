@@ -14,18 +14,19 @@ namespace WebCarRentalSystem.Models
         public string? Model { get; set; }
 
         public string? Marka { get; set; }
+
         [Required]
-        public string? Image { get; set; }
+        public string Image { get; set; }
 
         public string? Description { get; set;}
 
         [DisplayName("Fuel Consumption")]
-        public float FuelConsumption { get; set; }
+        public decimal? FuelConsumption { get; set; }
 
         public string? Transmission { get; set; }
 
         [DisplayName("Engine Value")]
-        public float EngineValue { get; set; }
+        public decimal? EngineValue { get; set; }
 
         [DisplayName("Manufacture Year")]
         public string? ManufactureYear { get; set; }

@@ -12,7 +12,7 @@ namespace WebCarRentalSystem.Models
 
         public string? DYears { get; set; }
 
-        public decimal Rating { get; set; }
+        public decimal? Rating { get; set; }
 
         [DisplayName("Home Address")]
         public string? HomeAddress { get; set; }

@@ -11,12 +11,15 @@ namespace WebCarRentalSystem.Models
 
         [ForeignKey("ModelCar")]
         [DisplayName("Model")]
+        [Required]
         public int ModelCarId { get; set; }
-        public ModelCar? Model { get; set; }
+
+        public ModelCar Model { get; set; }
 
         public string? Color { get; set; }
 
-        public bool Rented { get; set; }
+        public bool? Rented { get; set; }
+
         [DisplayName("Registration Number")]
         public string? CarRegNumber { get; set; }
     }

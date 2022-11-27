@@ -1,58 +1,60 @@
 ﻿@model ModelCar
 
-<form method="post" asp-action="Delete" enctype="multipart/form-data">
-    <input asp-for="Id" hidden />
-    <div class="border p-3 mt-4">
-        <div class="row pb-2">
-            <h2 class="text-primary">Delete Model</h2>
-            <hr />
+<body>
+    <form method="post" asp-action="Delete" enctype="multipart/form-data">
+        <input asp-for="Id" hidden />
+        <div class="border p-3 mt-4">
+            <div class="row pb-2">
+                <h2 class="text-primary">Delete Model</h2>
+                <hr />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Class"></label>
+                <select asp-for="Class" disabled class="form-select" id="exampleSelect2">
+                    <option>Econom</option>
+                    <option>Middle</option>
+                    <option>Business</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Model"></label>
+                <input asp-for="Model" disabled class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Marka"></label>
+                <input asp-for="Marka" disabled class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description"></label>
+                <input asp-for="Description" disabled class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="ManufactureYear"></label>
+                <input asp-for="ManufactureYear" disabled class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="FuelConsumption"></label>
+                <input asp-for="FuelConsumption" disabled class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Transmission"></label>
+                <input asp-for="Transmission" disabled class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="EngineValue"></label>
+                <input asp-for="EngineValue" disabled class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Image"></label>
+                <img src="@Model.Image" class="rounded mx-auto d-block" width="300" height="200" />
+            </div>
+            <button type="submit" class="btn btn-danger" style="width:150px">Delete</button>
+            <a asp-controller="ModelCar" asp-action="Index" class="btn btn-secondary" style="width:150px">
+                Back to List
+            </a>
         </div>
-        <div class="mb-3">
-            <label asp-for="Class"></label>
-            <select asp-for="Class" disabled class="form-select" id="exampleSelect2">
-                <option>Econom</option>
-                <option>Middle</option>
-                <option>Business</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Model"></label>
-            <input asp-for="Model" disabled class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Marka"></label>
-            <input asp-for="Marka" disabled class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Description"></label>
-            <input asp-for="Description" disabled class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="ManufactureYear"></label>
-            <input asp-for="ManufactureYear" disabled class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="FuelConsumption"></label>
-            <input asp-for="FuelConsumption" disabled class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Transmission"></label>
-            <input asp-for="Transmission" disabled class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="EngineValue"></label>
-            <input asp-for="EngineValue" disabled class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Image"></label>
-            <img src="@Model.Image" class="rounded mx-auto d-block" width="300" height="200" />
-        </div>
-        <button type="submit" class="btn btn-danger" style="width:150px">Delete</button>
-        <a asp-controller="ModelCar" asp-action="Index" class="btn btn-secondary" style="width:150px">
-            Back to List
-        </a>
-    </div>
-</form>
+    </form>
+</body>
 
 @section Scripts{
     @{

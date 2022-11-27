@@ -1,37 +1,40 @@
 ﻿@model Car
 
-<form method="post" asp-action="DeletePOST">
-    <input asp-for="Id" hidden />
-    <div class="border p-3 mt-4">
-        <div class="row pb-2">
-            <h2 class="text-primary">Delete Car</h2>
-            <hr />
+<body>
+    <form method="post" asp-action="Delete">
+        <input asp-for="Id" hidden />
+        <div class="border p-3 mt-4">
+            <div class="row pb-2">
+                <h2 class="text-primary">Delete Car</h2>
+                <hr />
+            </div>
+            <div class="mb-3">
+                <label asp-for="ModelCarId"></label>
+                <input asp-for="ModelCarId" disabled class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Color"></label>
+                <input asp-for="Color" disabled class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Rented"></label>
+                <select asp-for="Rented" disabled class="form-select" id="exampleSelect2">
+                    <option>True</option>
+                    <option>False</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="CarRegNumber"></label>
+                <input asp-for="CarRegNumber" disabled class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-danger" style="width:150px">Delete</button>
+            <a asp-controller="Car" asp-action="Index" class="btn btn-secondary" style="width:150px">
+                Back to List
+            </a>
         </div>
-        <div class="mb-3">
-            <label asp-for="ModelCarId"></label>
-            <input asp-for="ModelCarId" disabled class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Color"></label>
-            <input asp-for="Color" disabled class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Rented"></label>
-            <select asp-for="Rented" disabled class="form-select" id="exampleSelect2">
-                <option>True</option>
-                <option>False</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label asp-for="CarRegNumber"></label>
-            <input asp-for="CarRegNumber" disabled class="form-control" />
-        </div>
-        <button type="submit" class="btn btn-danger" style="width:150px">Delete</button>
-        <a asp-controller="Car" asp-action="Index" class="btn btn-secondary" style="width:150px">
-            Back to List
-        </a>
-    </div>
-</form>
+    </form>
+
+</body>
 
 @section Scripts{
     @{

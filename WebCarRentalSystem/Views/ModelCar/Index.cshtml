@@ -1,47 +1,59 @@
 ﻿@model IEnumerable<ModelCar>
 
-<section class="py-5 text-center container">
-    <div class="row py-lg-5">
-        <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">Fleet</h1>
-            <p class="lead text-muted">Here you can find a variety of models for the best machines from famous brands. We provide quality and guarantee that you will get the best ride experience \_0_0_/</p>
-            <p>
-                <a asp-asp-controller="ModelCar" asp-action="Create" class="btn btn-primary">
-                    <i class="bi bi-plus-circle"></i> &nbsp; Create New Model
-                </a>
-            </p>
+@{
+    ViewData["Title"] = "Model";
+}
+
+<body>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Fleet</h1>
+                <p class="lead text-muted">Here you can find a variety of models for the best machines from famous brands. We provide quality and guarantee that you will get the best ride experience \_0_0_/</p>
+                <p>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <a asp-asp-controller="ModelCar" asp-action="Create" class="btn btn-primary">
+                            <i class="bi bi-plus-circle"></i> &nbsp; Create New Model
+                        </a>
+                    }
+                </p>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<div class="album py-5 bg-light">
-    <div class="container">
+    <div class="album py-5 bg-light">
+        <div class="container">
 
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            @foreach (var obj in Model)
-            {
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <img class="card-img-top" src="@obj.Image" width="100" height="250" alt="Card image cap">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                @foreach (var obj in Model)
+                {
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img class="card-img-top" src="@obj.Image" width="100" height="250" alt="Card image cap">
 
-                        <div class="card-body">
-                            <p class="card-text">@obj.Marka @obj.Model</p>
-                            <p class="card-text">@obj.Description</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a asp-controller="ModelCar" asp-action="Detail" asp-route-id="@obj.Id"
-                                   class="btn btn-primary mx-2"><i class="bi bi-info-circle"></i>Detail</a>
-                                    <a asp-controller="ModelCar" asp-action="Edit" asp-route-id="@obj.Id"
-                                   class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>Edit</a>
-                                    <a asp-controller="ModelCar" asp-action="Delete" asp-route-id="@obj.Id"
-                                   class="btn btn-danger mx-2"> <i class="bi bi-trash"></i>Delete</a>
+                            <div class="card-body">
+                                <p class="card-text">@obj.Marka @obj.Model</p>
+                                <p class="card-text">@obj.Description</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a asp-controller="ModelCar" asp-action="Detail" asp-route-id="@obj.Id"
+                                       class="btn btn-primary mx-2"><i class="bi bi-info-circle"></i>Detail</a>
+                                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                        {
+                                            <a asp-controller="ModelCar" asp-action="Edit" asp-route-id="@obj.Id"
+                                       class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>Edit</a>
+                                            <a asp-controller="ModelCar" asp-action="Delete" asp-route-id="@obj.Id"
+                                       class="btn btn-danger mx-2"> <i class="bi bi-trash"></i>Delete</a>
+                                        }
+                                    </div>
+                                    <small class="text-muted">@obj.Class</small>
                                 </div>
-                                <small class="text-muted">@obj.Class</small>
                             </div>
                         </div>
                     </div>
-                </div>
-            }
+                }
+            </div>
         </div>
     </div>
-</div>
+</body>

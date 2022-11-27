@@ -1,101 +1,122 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebCarRentalSystem.Areas.Identity.Data;
+using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
+using WebCarRentalSystem.ViewModels.Contract;
 
 namespace WebCarRentalSystem.Controllers
 {
     public class ContractController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        public ContractController(ApplicationDbContext context)
+        private readonly IContractRepository _contractRepository;
+        public ContractController(IContractRepository contractRepository)
         {
-            _context = context;
+            _contractRepository = contractRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Contract> contracts = _context.Contract.ToList();
+            IEnumerable<Contract> contracts = await _contractRepository.GetAll();
             return View(contracts);
         }
 
-        // GET
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Contract obj)
+        public IActionResult Create(CreateContractViewModel contractVM)
         {
             if (ModelState.IsValid)
             {
-                _context.Contract.Add(obj);
-                _context.SaveChanges();
+                var contract = new Contract
+                {
+                    DateContract = contractVM.DateContract,
+                    DateEnd = contractVM.DateEnd,
+                    ClientID = contractVM.ClientID,
+                    CarId = contractVM.CarId,
+                    ContractDays = contractVM.ContractDays,
+                    Price = contractVM.Price
+                };
+                _contractRepository.Add(contract);
                 TempData["success"] = "Contract created successfully";
                 return RedirectToAction("Index");
             }
-            return View(obj);
+            else
+            {
+                ModelState.AddModelError("", "Can't create new contract");
+            }
+            return View(contractVM);
         }
 
-        // GET
-        public IActionResult Edit(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == 0 || id == null)
+            var contract = await _contractRepository.GetByIdAsync(id);
+            if (contract == null) { return View("Error"); }
+            var contractVM = new EditContractViewModel
             {
-                return NotFound();
-            }
-            var carFromDb = _context.Contract.Find(id);
-
-            if (carFromDb == null)
-            {
-                return NotFound();
-            }
-            return View();
+                DateContract = contract.DateContract,
+                DateEnd = contract.DateEnd,
+                ClientID = contract.ClientID,
+                CarId = contract.CarId,
+                ContractDays = contract.ContractDays,
+                Price = contract.Price
+            };
+            return View(contractVM);
         }
 
-        // POST
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(Contract obj)
+        public async Task<IActionResult> Edit(int id, EditContractViewModel contractVM)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Contract.Update(obj);
-                _context.SaveChanges();
+                ModelState.AddModelError("", "Failed to edit contract");
+                return View("Edit", contractVM);
+            }
+            var contractModel = await _contractRepository.GetByIdAsyncNoTracking(id);
+            if (contractModel != null)
+            {
+                var contract = new Contract
+                {
+                    Id = id,
+                    DateContract = contractVM.DateContract,
+                    DateEnd = contractVM.DateEnd,
+                    ClientID = contractVM.ClientID,
+                    CarId = contractVM.CarId,
+                    ContractDays = contractVM.ContractDays,
+                    Price = contractVM.Price
+                };
+                _contractRepository.Edit(contract);
                 TempData["success"] = "Contract updated successfully";
                 return RedirectToAction("Index");
             }
-            return View(obj);
+            else
+            {
+                return View(contractVM);
+            }
         }
 
-        // GET
-        public IActionResult Delete(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == 0 || id == null)
-            {
-                return NotFound();
-            }
-            var carFromDb = _context.Contract.Find(id);
-
-            if (carFromDb == null)
-            {
-                return NotFound();
-            }
-            return View();
+            var contractDetails = await _contractRepository.GetByIdAsync(id);
+            if (contractDetails == null) return View("Error");
+            return View(contractDetails);
         }
 
-        // POST
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeletePOST(int? id)
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteContract(int id)
         {
-            var obj = _context.Contract.Find(id);
-            if (obj == null) { return NotFound(); }
+            var contractDetails = await _contractRepository.GetByIdAsync(id);
 
-            _context.Contract.Remove(obj);
-            _context.SaveChanges();
+            if (contractDetails == null)
+            {
+                return View("Error");
+            }
+
+            _contractRepository.Delete(contractDetails);
             TempData["success"] = "Contract deleted successfully";
             return RedirectToAction("Index");
         }

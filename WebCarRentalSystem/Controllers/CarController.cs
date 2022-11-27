@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebCarRentalSystem.Areas.Identity.Data;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
+using WebCarRentalSystem.ViewModels.Car;
 
 namespace WebCarRentalSystem.Controllers
 {
@@ -19,89 +19,100 @@ namespace WebCarRentalSystem.Controllers
             return View(cars);
         }
 
-        // GET
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        //POST
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Car car)
+        public IActionResult Create(CreateCarViewModel carVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var car = new Car
+                {
+                    ModelCarId = carVM.ModelCarId,
+                    Color = carVM.Color,
+                    Rented = carVM.Rented,
+                    CarRegNumber = carVM.CarRegNumber
+                };
+                _carRepository.Add(car);
+                TempData["success"] = "Car created successfully";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Can't create new car");
+            }
+            return View(carVM);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var car = await _carRepository.GetByIdAsync(id);
+            if (car == null) { return View("Error"); }
+            var carVM = new EditCarViewModel
+            {
+                ModelCarId = car.ModelCarId,
+                Color = car.Color,
+                Rented = car.Rented,
+                CarRegNumber = car.CarRegNumber
+            };
+            return View(carVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditCarViewModel carVM)
         {
             if (!ModelState.IsValid)
             {
-                return View(car);
+                ModelState.AddModelError("", "Failed to edit car");
+                return View("Edit", carVM);
             }
-            _carRepository.Add(car);
-            TempData["success"] = "Car created successfully";
-            return RedirectToAction("Index");
+            var carModel = await _carRepository.GetByIdAsyncNoTracking(id);
+            if (carModel != null)
+            {
+                var car = new Car
+                {
+                    Id = id,
+                    ModelCarId = carVM.ModelCarId,
+                    Color = carVM.Color,
+                    Rented = carVM.Rented,
+                    CarRegNumber = carVM.CarRegNumber
+                };
+                _carRepository.Edit(car);
+                TempData["success"] = "Car updated successfully";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(carVM);
+            }
         }
 
-        //// GET
-        //public IActionResult Edit(int? id)
-        //{
-        //    if (id == 0 || id == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var carFromDb = _context.Car.Find(id);
-        //    //var carFromDbFirst=_context.Car.FirstOrDefault(x => x.Id==id);
-        //    //var carFromDbSingle=_context.Car.SingleOrDefault(x=>x.Id==id);
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var carDetails = await _carRepository.GetByIdAsync(id);
+            if (carDetails == null) return View("Error");
+            return View(carDetails);
+        }
 
-        //    if (carFromDb == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View();
-        //}
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteCar(int id)
+        {
+            var carDetails = await _carRepository.GetByIdAsync(id);
 
-        //// POST
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Edit(Car obj)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Car.Update(obj);
-        //        _context.SaveChanges();
-        //        TempData["success"] = "Car updated successfully";
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(obj);
-        //}
+            if (carDetails == null)
+            {
+                return View("Error");
+            }
 
-        //// GET
-        //public IActionResult Delete(int? id)
-        //{
-        //    if (id == 0 || id == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var carFromDb = _context.Car.Find(id);
-        //    //var carFromDbFirst=_context.Car.FirstOrDefault(x => x.Id==id);
-        //    //var carFromDbSingle=_context.Car.SingleOrDefault(x=>x.Id==id);
-
-        //    if (carFromDb == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View();
-        //}
-
-        //// POST
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult DeletePOST(int? id)
-        //{
-        //    var obj = _context.Car.Find(id);
-        //    if (obj == null) { return NotFound(); }
-
-        //    _context.Car.Remove(obj);
-        //    _context.SaveChanges();
-        //    TempData["success"] = "Car deleted successfully";
-        //    return RedirectToAction("Index");
-        //}
+            _carRepository.Delete(carDetails);
+            TempData["success"] = "Car deleted successfully";
+            return RedirectToAction("Index");
+        }
     }
 }

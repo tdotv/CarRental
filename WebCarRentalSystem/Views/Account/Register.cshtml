@@ -1,0 +1,78 @@
+﻿@using WebCarRentalSystem.ViewModels.Account
+@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Signup";
+}
+
+<head>
+    <style>
+        body {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<!-- Section: Design Block -->
+<body>
+    <!-- Text -->
+    <div class="text-center" style="margin-top:100px">
+        <p>
+            <h1><strong>Registration</strong></h1>
+        </p>
+    </div>
+    <!-- Form -->
+    <div class="card d-flex bg-light" style="margin-top:25px">
+        @*width:1250px; height:458px*@
+        <div class="row g-0 d-flex">
+            <!-- Image -->
+            <div class="col-lg-4 d-none d-lg-flex">
+                <img src="https://i.postimg.cc/zBsT9FbV/imgonline-com-ua-Resize-k-E86-Wfhmoa.jpg" alt="Car To Moon"
+                     class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" style="width:1400px; height:475px" />
+            </div>
+            <!-- Card -->
+            <div class="col-lg-8">
+                <div class="card-body py-5 px-md-5 ">
+
+                    <form asp-action="Register">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" placeholder="Input Email">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-outline mb-4">
+                            <label asp-for="Password" class="form-label"></label>
+                            <input type="Password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                   title="Must contain at least one number, one non alphanumeric, one uppercase and lowercase letter, and at least 8 or more characters"
+                                   required placeholder="Input Password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <!-- Confirm PAssword input -->
+                        <div class="form-outline mb-4">
+                            <label asp-for="ConfirmPassword" class="control-label"></label>
+                            <input asp-for="ConfirmPassword" class="form-control" placeholder="Repeat Password" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <!-- Submit button -->
+                        <div class="form-group">
+                            <input class="btn btn-outline-success float right" type="submit" value="Sign up" />
+                            <a class="btn btn-outline-secondary" asp-controller="Account" asp-action="Login">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

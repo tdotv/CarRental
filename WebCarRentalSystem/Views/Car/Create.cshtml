@@ -1,37 +1,40 @@
-﻿@model Car
+﻿@using WebCarRentalSystem.ViewModels.Car
+@model CreateCarViewModel
 
-<form method="post" asp-action="Create">
-    <div class="border p-3 mt-4">
-        <div class="row pb-2">
-            <h2 class="text-primary">Create Car</h2>
-            <hr />
+<body>
+    <form method="post" asp-action="Create">
+        <div class="border p-3 mt-4">
+            <div class="row pb-2">
+                <h2 class="text-primary">Create Car</h2>
+                <hr />
+            </div>
+            <div class="mb-3">
+                <label asp-for="ModelCarId"></label>
+                <input asp-for="ModelCarId" class="form-control" placeholder="Model ID" />
+                <span asp-validation-for="ModelCarId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Color"></label>
+                <input asp-for="Color" class="form-control" placeholder="Color" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Rented"></label>
+                <select asp-for="Rented" class="form-select">
+                    <option>True</option>
+                    <option>False</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="CarRegNumber"></label>
+                <input asp-for="CarRegNumber" class="form-control" placeholder="Registration Number" />
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+            <a asp-controller="Car" asp-action="Index" class="btn btn-secondary" style="width:150px">
+                Back to List
+            </a>
         </div>
-        <div class="mb-3">
-            <label asp-for="ModelCarId"></label>
-            <input asp-for="ModelCarId" class="form-control" placeholder="Model ID"/>
-            <span asp-validation-for="ModelCarId" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Color"></label>
-            <input asp-for="Color" class="form-control" placeholder="Color"/>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Rented"></label>
-            <select asp-for="Rented" class="form-select">
-                <option>True</option>
-                <option>False</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label asp-for="CarRegNumber"></label>
-            <input asp-for="CarRegNumber" class="form-control" placeholder="Registration Number"/>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
-        <a asp-controller="Car" asp-action="Index" class="btn btn-secondary" style="width:150px">
-            Back to List
-        </a>
-    </div>
-</form>
+    </form>
+</body>
 
 @section Scripts{
     @{
