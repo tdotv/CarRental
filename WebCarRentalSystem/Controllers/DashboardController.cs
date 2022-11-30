@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebCarRentalSystem.Interfaces;
-using WebCarRentalSystem.ViewModels.Dashboard;
+using WebCarRentalSystem.ViewModels;
 
 namespace WebCarRentalSystem.Controllers
 {
@@ -12,15 +12,16 @@ namespace WebCarRentalSystem.Controllers
             _dashboardRepository = dashboardRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
-            var userContracts = await _dashboardRepository.GetAll();
+            var userAccidents = await _dashboardRepository.GetAllUserAccidents();
+            var userContracts = await _dashboardRepository.GetAllUserContracts();
             var dashboardViewModel = new DashboardViewModel()
             {
-                DateContract = DateTime.Now,
-                //DateEnd = dashboardViewModel.DateEnd,
-
+                Accidents = userAccidents,
+                Contracts = userContracts,
             };
+            
             return View(dashboardViewModel);
         }
     }

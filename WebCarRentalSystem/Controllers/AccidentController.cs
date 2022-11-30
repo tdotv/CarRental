@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ReflectionIT.Mvc.Paging;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
-using WebCarRentalSystem.ViewModels.Accident;
-using WebCarRentalSystem.ViewModels.Client;
+using WebCarRentalSystem.ViewModels;
 
 namespace WebCarRentalSystem.Controllers
 {
@@ -14,9 +14,41 @@ namespace WebCarRentalSystem.Controllers
             _accidentRepository = accidentRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString, int page = 1)
         {
-            IEnumerable<Accident> accidents = await _accidentRepository.GetAll();
+            ViewBag.DateDtpSortParm = sortOrder == "DateDtp" ? "dateDtp_desc" : "DateDtp";
+            ViewBag.CollisionsSortParm = sortOrder == "Collisions" ? "collisions_desc" : "Collisions";
+            ViewBag.ResultSortParm = sortOrder == "Result" ? "result_desc" : "Result";
+            ViewData["CurrentFilter"] = searchString;
+
+            IEnumerable<Accident> accidents = await _accidentRepository.GetAllNoTracking();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                accidents = accidents.Where(s => s.Collisions.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "DateDtp":
+                    accidents = accidents.OrderBy(s => s.DateDtp);
+                    break;
+                case "dateDtp_desc":
+                    accidents = accidents.OrderByDescending(s => s.DateDtp);
+                    break;
+                case "Collisions":
+                    accidents = accidents.OrderBy(s => s.Collisions);
+                    break;
+                case "collisions_desc":
+                    accidents = accidents.OrderByDescending(s => s.Collisions);
+                    break;
+                case "Result":
+                    accidents = accidents.OrderBy(s => s.Result);
+                    break;
+                case "result_desc":
+                    accidents = accidents.OrderByDescending(s => s.Result);
+                    break;
+            }
             return View(accidents);
         }
 
@@ -69,7 +101,7 @@ namespace WebCarRentalSystem.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Failed to edit client");
+                ModelState.AddModelError("", "Failed to edit accident");
                 return View("Edit", accidentVM);
             }
             var accidentModel = await _accidentRepository.GetByIdAsyncNoTracking(id);

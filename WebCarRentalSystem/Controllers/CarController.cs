@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
-using WebCarRentalSystem.ViewModels.Car;
+using WebCarRentalSystem.ViewModels;
 
 namespace WebCarRentalSystem.Controllers
 {
@@ -13,9 +14,41 @@ namespace WebCarRentalSystem.Controllers
             _carRepository = carRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            IEnumerable<Car> cars = await _carRepository.GetAll();
+            ViewBag.ColorSortParm = sortOrder == "Color" ? "color_desc" : "Color";
+            ViewBag.RentedSortParm = sortOrder == "Rented" ? "rented_desc" : "Rented";
+            ViewBag.CarRegNumberSortParm = sortOrder == "CarRegNumber" ? "carRegNumber_desc" : "CarRegNumber";
+            ViewData["CurrentFilter"] = searchString;
+
+            IEnumerable<Car> cars = await _carRepository.GetAllNoTracking();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                cars = cars.Where(s => s.CarRegNumber.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "Color":
+                    cars = cars.OrderBy(s => s.Color);
+                    break;
+                case "color_desc":
+                    cars = cars.OrderByDescending(s => s.Color);
+                    break;
+                case "Rented":
+                    cars = cars.OrderBy(s => s.Rented);
+                    break;
+                case "rented_desc":
+                    cars = cars.OrderByDescending(s => s.Rented);
+                    break;
+                case "CarRegNumber":
+                    cars = cars.OrderBy(s => s.CarRegNumber);
+                    break;
+                case "carRegNumber_desc":
+                    cars = cars.OrderByDescending(s => s.CarRegNumber);
+                    break;
+            }
             return View(cars);
         }
 

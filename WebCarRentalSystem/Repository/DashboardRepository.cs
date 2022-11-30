@@ -15,45 +15,18 @@ namespace WebCarRentalSystem.Repository
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public bool Add(Contract contract)
+        public Task<List<Accident>> GetAllUserAccidents()
         {
-            _context.Add(contract);
-            return Save();
+            var curUser = _httpContextAccessor.HttpContext?.User.GetUserId();
+            var userAccidents = _context.Accident.Where(r => r.ApplicationUser.Id == curUser);
+            return Task.FromResult(userAccidents.ToList());
         }
 
-        public bool Delete(Contract contract)
+        public Task<List<Contract>> GetAllUserContracts()
         {
-            _context.Remove(contract);
-            return Save();
-        }
-
-        public bool Edit(Contract contract)
-        {
-            _context.Update(contract);
-            return Save();
-        }
-
-        public Task<IEnumerable<Contract>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        //public async Task<IEnumerable<Contract>> GetAll()
-        //{
-        //    var curUser = _httpContextAccessor.HttpContext?.User;
-        //    var userContracts = _context.Contract.Where(r => r.ApplicationUser.Id == curUser.ToString());
-        //    return userContracts.ToList();
-        //}
-
-        public async Task<Contract> GetByIdAsync(int id)
-        {
-            return await _context.Contract.FirstOrDefaultAsync(i => i.Id == id);
-        }
-
-        public bool Save()
-        {
-            var saved = _context.SaveChanges();
-            return saved > 0 ? true : false;
+            var curUser = _httpContextAccessor.HttpContext?.User.GetUserId();
+            var userContracts = _context.Contract.Where(r => r.ApplicationUser.Id == curUser);
+            return Task.FromResult(userContracts.ToList());
         }
     }
 }

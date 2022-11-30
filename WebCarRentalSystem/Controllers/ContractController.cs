@@ -1,28 +1,68 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
-using WebCarRentalSystem.ViewModels.Contract;
+using WebCarRentalSystem.ViewModels;
 
 namespace WebCarRentalSystem.Controllers
 {
     public class ContractController : Controller
     {
         private readonly IContractRepository _contractRepository;
-        public ContractController(IContractRepository contractRepository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ContractController(IContractRepository contractRepository, IHttpContextAccessor httpContextAccessor)
         {
             _contractRepository = contractRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
+            ViewBag.DateContractSortParm = sortOrder == "DateContract" ? "dateContract_desc" : "DateContract";
+            ViewBag.DateEndSortParm = sortOrder == "DateEnd" ? "dateEnd_desc" : "DateEnd";
+            ViewBag.ContractDaysSortParm = sortOrder == "ContractDays" ? "contractDays_desc" : "ContractDays";
+            ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
+
             IEnumerable<Contract> contracts = await _contractRepository.GetAll();
+
+            switch (sortOrder)
+            {
+                case "DateContract":
+                    contracts = contracts.OrderBy(s => s.DateContract);
+                    break;
+                case "dateContract_desc":
+                    contracts = contracts.OrderByDescending(s => s.DateContract);
+                    break;
+                case "DateEnd":
+                    contracts = contracts.OrderBy(s => s.DateEnd);
+                    break;
+                case "dateEnd_desc":
+                    contracts = contracts.OrderByDescending(s => s.DateEnd);
+                    break;
+                case "ContractDays":
+                    contracts = contracts.OrderByDescending(s => s.ContractDays);
+                    break;
+                case "contractDays_desc":
+                    contracts = contracts.OrderByDescending(s => s.ContractDays);
+                    break;
+                case "Price":
+                    contracts = contracts.OrderByDescending(s => s.Price);
+                    break;
+                case "price_desc":
+                    contracts = contracts.OrderByDescending(s => s.Price);
+                    break;
+            }
             return View(contracts);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            var curUserId = _httpContextAccessor.HttpContext.User.GetUserId();
+            var createContractViewModel = new CreateContractViewModel
+            {
+                ApplicationUserId = curUserId
+            };
+            return View(createContractViewModel);
         }
 
         [HttpPost]
@@ -34,10 +74,10 @@ namespace WebCarRentalSystem.Controllers
                 {
                     DateContract = contractVM.DateContract,
                     DateEnd = contractVM.DateEnd,
-                    ClientID = contractVM.ClientID,
                     CarId = contractVM.CarId,
                     ContractDays = contractVM.ContractDays,
-                    Price = contractVM.Price
+                    Price = contractVM.Price,
+                    ApplicationUserId = contractVM.ApplicationUserId
                 };
                 _contractRepository.Add(contract);
                 TempData["success"] = "Contract created successfully";
@@ -59,7 +99,6 @@ namespace WebCarRentalSystem.Controllers
             {
                 DateContract = contract.DateContract,
                 DateEnd = contract.DateEnd,
-                ClientID = contract.ClientID,
                 CarId = contract.CarId,
                 ContractDays = contract.ContractDays,
                 Price = contract.Price
@@ -83,7 +122,6 @@ namespace WebCarRentalSystem.Controllers
                     Id = id,
                     DateContract = contractVM.DateContract,
                     DateEnd = contractVM.DateEnd,
-                    ClientID = contractVM.ClientID,
                     CarId = contractVM.CarId,
                     ContractDays = contractVM.ContractDays,
                     Price = contractVM.Price

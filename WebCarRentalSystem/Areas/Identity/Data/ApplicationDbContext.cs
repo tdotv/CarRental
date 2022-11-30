@@ -13,7 +13,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Accident> Accident { get; set; }
     public DbSet<ApplicationUser> ApplicationUser { get; set; }
     public DbSet<Car> Car { get; set; }
-    public DbSet<Client> Client { get; set; }
     public DbSet<Contract> Contract { get; set; }
     public DbSet<ModelCar> ModelCar { get; set; }
 }

@@ -1,10 +1,12 @@
-﻿using WebCarRentalSystem.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using WebCarRentalSystem.Models;
 
 namespace WebCarRentalSystem.Interfaces
 {
     public interface ICarRepository
     {
         Task<IEnumerable<Car>> GetAll();
+        Task<IEnumerable<Car>> GetAllNoTracking();
         Task<Car> GetByIdAsync(int id);
         Task<Car> GetByIdAsyncNoTracking(int id);
         Task<IEnumerable<Car>> GetCarByRegNum(string CarRegNumber);

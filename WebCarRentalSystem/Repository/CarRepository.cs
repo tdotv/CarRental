@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebCarRentalSystem.Areas.Identity.Data;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
@@ -35,6 +36,11 @@ namespace WebCarRentalSystem.Repository
         public async Task<IEnumerable<Car>> GetAll()
         {
             return await _context.Car.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Car>> GetAllNoTracking()
+        {
+            return await _context.Car.AsNoTracking().ToListAsync();
         }
 
         public async Task<Car> GetByIdAsync(int id)

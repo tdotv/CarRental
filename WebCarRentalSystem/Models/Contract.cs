@@ -15,19 +15,17 @@ namespace WebCarRentalSystem.Models
         [DisplayName("Date End")]
         public DateTime? DateEnd { get; set; }
 
-        [ForeignKey("Client")]
-        [DisplayName("Client")]
-        public int ClientID { get; set; }
-        public Client? Client { get; set; }
-
         [ForeignKey("Car")]
-        [DisplayName("Car")]
-        public int CarId { get; set; }
+        public int? CarId { get; set; }
         public Car? Car { get; set; }
 
         [DisplayName("Contract Days")]
         public decimal? ContractDays { get; set; }
 
         public decimal? Price { get; set; }
+
+        [ForeignKey("ApplicationUser")]
+        public string? ApplicationUserId { get; set; }
+        public ApplicationUser? ApplicationUser { get; set; }
     }
 }

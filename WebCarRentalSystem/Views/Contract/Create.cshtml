@@ -1,8 +1,9 @@
-﻿@using WebCarRentalSystem.ViewModels.Contract
+﻿@using WebCarRentalSystem.ViewModels
 @model CreateContractViewModel
 
 <body>
     <form method="post" asp-action="Create">
+        <input type="hidden" id="ApplicationUserId" name="ApplicationUserId" asp-for="ApplicationUserId" />
         <div class="border p-3 mt-4">
             <div class="row pb-2">
                 <h2 class="text-primary">Create Contract</h2>
@@ -15,11 +16,6 @@
             <div class="mb-3">
                 <label asp-for="DateEnd"></label>
                 <input asp-for="DateEnd" class="form-control" />
-            </div>
-            <div class="mb-3">
-                <label asp-for="ClientID"></label>
-                <input asp-for="ClientID" class="form-control" />
-                <span asp-validation-for="ClientID" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="CarId"></label>

@@ -1,17 +1,26 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Build.Framework;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebCarRentalSystem.Models;
 
-// Add profile data for application users by adding properties to the ApplicationUser class
 public class ApplicationUser : IdentityUser
 {
-    [ForeignKey("Client")]
-    public int? ClientId { get; set; }
-    public Client? Client { get; set; }
+    public string? Passport { get; set; }
+
+    public string? DYears { get; set; }
+
+    public decimal? Rating { get; set; }
+
+    [DisplayName("Home Address")]
+    public string? HomeAddress { get; set; }
+
+    [Required(ErrorMessage = "Please Enter Phone Number")]
+    public decimal Telephone { get; set; }
 
     [Required]
     public string Password { get; set; }
 
+    public ICollection<Accident> Accidents { get; set; }
+    public ICollection<Contract> Contracts { get; set; }
 }

@@ -10,10 +10,8 @@ namespace WebCarRentalSystem.Models
         public int Id { get; set; }
 
         [ForeignKey("ModelCar")]
-        [DisplayName("Model")]
-        [Required]
+        [Required(ErrorMessage = "Please Enter Your Model Id")]
         public int ModelCarId { get; set; }
-
         public ModelCar Model { get; set; }
 
         public string? Color { get; set; }

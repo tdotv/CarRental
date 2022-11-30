@@ -22,22 +22,22 @@
         <thead>
             <tr>
                 <th>
-                    Date Contract
+                    ID
                 </th>
                 <th>
-                    Date End
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateContractSortParm"]">@Html.DisplayNameFor(model => model.DateContract)</a>
                 </th>
                 <th>
-                    Client
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateEndSortParm"]">@Html.DisplayNameFor(model => model.DateEnd)</a>
                 </th>
                 <th>
-                    Car
+                    Car ID
                 </th>
                 <th>
-                    Contract Days
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["ContractDaysSortParm"]">@Html.DisplayNameFor(model => model.ContractDays)</a>
                 </th>
                 <th>
-                    Price
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]">@Html.DisplayNameFor(model => model.Price)</a>
                 </th>
 
                 <th></th>
@@ -48,13 +48,13 @@
             {
                 <tr>
                     <td width="17%">
+                        @obj.Id
+                    </td>
+                    <td width="17%">
                         @obj.DateContract
                     </td>
                     <td width="17%">
                         @obj.DateEnd
-                    </td>
-                    <td width="17%">
-                        @obj.ClientID
                     </td>
                     <td width="17%">
                         @obj.CarId

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
-using WebCarRentalSystem.ViewModels.ModelCar;
+using WebCarRentalSystem.ViewModels;
 
 namespace WebCarRentalSystem.Controllers
 {

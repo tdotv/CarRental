@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebCarRentalSystem.Areas.Identity.Data;
 using WebCarRentalSystem.Models;
-using WebCarRentalSystem.ViewModels.Account;
+using WebCarRentalSystem.ViewModels;
 
 namespace WebCarRentalSystem.Controllers
 {

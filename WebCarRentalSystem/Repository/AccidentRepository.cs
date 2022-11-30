@@ -36,6 +36,11 @@ namespace WebCarRentalSystem.Repository
             return await _context.Accident.ToListAsync();
         }
 
+        public async Task<IEnumerable<Accident>> GetAllNoTracking()
+        {
+            return await _context.Accident.AsNoTracking().ToListAsync();
+        }
+
         public async Task<Accident> GetByIdAsync(int id)
         {
             return await _context.Accident.FirstOrDefaultAsync(i => i.Id == id);

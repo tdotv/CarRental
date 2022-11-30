@@ -1,4 +1,4 @@
-﻿@using WebCarRentalSystem.ViewModels.Contract
+﻿@using WebCarRentalSystem.ViewModels
 @model EditContractViewModel
 
 <body>
@@ -17,11 +17,6 @@
                 <label asp-for="DateEnd"></label>
                 <input asp-for="DateEnd" class="form-control" />
                 <span asp-validation-for="DateEnd" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="ClientID"></label>
-                <input asp-for="ClientID" class="form-control" />
-                <span asp-validation-for="ClientID" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="CarId"></label>

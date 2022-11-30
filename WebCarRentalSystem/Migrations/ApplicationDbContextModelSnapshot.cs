@@ -163,6 +163,9 @@ namespace WebCarRentalSystem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Collisions")
                         .HasColumnType("nvarchar(max)");
 
@@ -177,6 +180,8 @@ namespace WebCarRentalSystem.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.HasIndex("ContractId");
 
                     b.ToTable("Accident");
@@ -190,11 +195,11 @@ namespace WebCarRentalSystem.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ClientId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DYears")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -203,6 +208,9 @@ namespace WebCarRentalSystem.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("HomeAddress")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -218,6 +226,9 @@ namespace WebCarRentalSystem.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("Passport")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -231,8 +242,14 @@ namespace WebCarRentalSystem.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<decimal?>("Rating")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Telephone")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -242,8 +259,6 @@ namespace WebCarRentalSystem.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -283,34 +298,6 @@ namespace WebCarRentalSystem.Migrations
                     b.ToTable("Car");
                 });
 
-            modelBuilder.Entity("WebCarRentalSystem.Models.Client", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("DYears")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HomeAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Passport")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("Rating")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Telephone")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Client");
-                });
-
             modelBuilder.Entity("WebCarRentalSystem.Models.Contract", b =>
                 {
                     b.Property<int>("Id")
@@ -319,10 +306,10 @@ namespace WebCarRentalSystem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("ClientID")
+                    b.Property<int?>("CarId")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("ContractDays")
@@ -339,9 +326,9 @@ namespace WebCarRentalSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarId");
+                    b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("ClientID");
+                    b.HasIndex("CarId");
 
                     b.ToTable("Contract");
                 });
@@ -440,22 +427,19 @@ namespace WebCarRentalSystem.Migrations
 
             modelBuilder.Entity("WebCarRentalSystem.Models.Accident", b =>
                 {
+                    b.HasOne("WebCarRentalSystem.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("Accidents")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("WebCarRentalSystem.Models.Contract", "Contract")
                         .WithMany()
                         .HasForeignKey("ContractId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("ApplicationUser");
+
                     b.Navigation("Contract");
-                });
-
-            modelBuilder.Entity("WebCarRentalSystem.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("WebCarRentalSystem.Models.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId");
-
-                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("WebCarRentalSystem.Models.Car", b =>
@@ -471,21 +455,24 @@ namespace WebCarRentalSystem.Migrations
 
             modelBuilder.Entity("WebCarRentalSystem.Models.Contract", b =>
                 {
+                    b.HasOne("WebCarRentalSystem.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("Contracts")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("WebCarRentalSystem.Models.Car", "Car")
                         .WithMany()
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CarId");
 
-                    b.HasOne("WebCarRentalSystem.Models.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Car");
+                });
 
-                    b.Navigation("Client");
+            modelBuilder.Entity("WebCarRentalSystem.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Accidents");
+
+                    b.Navigation("Contracts");
                 });
 #pragma warning restore 612, 618
         }
