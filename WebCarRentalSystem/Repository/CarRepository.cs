@@ -10,6 +10,8 @@ namespace WebCarRentalSystem.Repository
     {
 
         private readonly ApplicationDbContext _context;
+        public Car Car { get; set; }
+
         public CarRepository(ApplicationDbContext context)
         {
             _context= context;
@@ -35,7 +37,7 @@ namespace WebCarRentalSystem.Repository
 
         public async Task<IEnumerable<Car>> GetAll()
         {
-            return await _context.Car.ToListAsync();
+            return await _context.Car.Include(p => p.Model).ToListAsync();
         }
 
         public async Task<IEnumerable<Car>> GetAllNoTracking()
@@ -45,30 +47,13 @@ namespace WebCarRentalSystem.Repository
 
         public async Task<Car> GetByIdAsync(int id)
         {
-            return await _context.Car.FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Car?.FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public async Task<Car> GetByIdAsyncNoTracking(int id)
         {
-            return await _context.Car.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Car?.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
         }
-
-        //?????????
-        public async Task<IEnumerable<Car>> GetCarByRegNum(string CarRegNumber)
-        {
-            return await _context.Car.Where(c => c.Equals(CarRegNumber)).ToListAsync(); 
-        }
-        //-------------------------------------------------------------------------------------
-
-        public async Task<IEnumerable<Car>> GetModel(string model)
-        {
-            return await _context.Car.Where(c => c.Model.Model.Contains(model)).ToListAsync();
-        }
-        public async Task<IEnumerable<Car>> GetMarka(string model)
-        {
-            return await _context.Car.Where(c => c.Model.Marka.Contains(model)).ToListAsync();
-        }
-        //-------------------------------------------------------------------------------------
 
         public bool Save()
         {

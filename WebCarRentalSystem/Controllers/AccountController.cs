@@ -68,6 +68,7 @@ namespace WebCarRentalSystem.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ModelState.AddModelError("", "Wrong credentials");
                 return View(registerViewModel);
             }
            

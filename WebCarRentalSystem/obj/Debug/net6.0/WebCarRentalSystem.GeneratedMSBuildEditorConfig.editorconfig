@@ -40,10 +40,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/Работа/CourseWorkOOP/WebCarRentalSystem/WebCarRentalSystem/Views/Administration/CreateRole.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5pc3RyYXRpb25cQ3JlYXRlUm9sZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [E:/Работа/CourseWorkOOP/WebCarRentalSystem/WebCarRentalSystem/Views/Car/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FyXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -122,6 +118,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/Работа/CourseWorkOOP/WebCarRentalSystem/WebCarRentalSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Работа/CourseWorkOOP/WebCarRentalSystem/WebCarRentalSystem/Views/User/EditProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxFZGl0UHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Работа/CourseWorkOOP/WebCarRentalSystem/WebCarRentalSystem/Views/User/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/Работа/CourseWorkOOP/WebCarRentalSystem/WebCarRentalSystem/Views/_ViewImports.cshtml]

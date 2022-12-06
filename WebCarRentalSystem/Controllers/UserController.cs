@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
-using WebCarRentalSystem.Services;
 using WebCarRentalSystem.ViewModels;
 
 namespace WebCarRentalSystem.Controllers
@@ -31,35 +30,11 @@ namespace WebCarRentalSystem.Controllers
                     UserName = user.UserName,
                     Passport = user.Passport,
                     DYears = user.DYears,
-                    Rating = user.Rating,
-                    HomeAddress = user.HomeAddress,
-                    Telephone = user.Telephone
+                    Telephone = user.Telephone,
                 };
                 result.Add(userViewModel);
             }
             return View(result);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Detail(string id)
-        {
-            var user = await _userRepository.GetUserById(id);
-            if (user == null)
-            {
-                return RedirectToAction("Index", "Users");
-            }
-
-            var userDetailViewModel = new UserDetailViewModel()
-            {
-                Id = user.Id,
-                UserName = user.UserName,
-                Passport = user.Passport,
-                DYears = user.DYears,
-                Rating = user.Rating,
-                HomeAddress = user.HomeAddress,
-                Telephone = user.Telephone
-            };
-            return View(userDetailViewModel);
         }
 
         [HttpGet]
@@ -77,8 +52,6 @@ namespace WebCarRentalSystem.Controllers
             {
                 Passport = user.Passport,
                 DYears = user.DYears,
-                Rating = user.Rating,
-                HomeAddress = user.HomeAddress,
                 Telephone = user.Telephone
             };
             return View(editMV);
@@ -86,6 +59,7 @@ namespace WebCarRentalSystem.Controllers
 
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProfile(EditProfileViewModel editVM)
         {
             if (!ModelState.IsValid)
@@ -101,38 +75,13 @@ namespace WebCarRentalSystem.Controllers
                 return View("Error");
             }
 
-            //if (editVM.Image != null) // only update profile image
-            //{
-            //    var photoResult = await _photoService.AddPhotoAsync(editVM.Image);
-
-            //    if (photoResult.Error != null)
-            //    {
-            //        ModelState.AddModelError("Image", "Failed to upload image");
-            //        return View("EditProfile", editVM);
-            //    }
-
-            //    if (!string.IsNullOrEmpty(user.ProfileImageUrl))
-            //    {
-            //        _ = _photoService.DeletePhotoAsync(user.ProfileImageUrl);
-            //    }
-
-            //    user.ProfileImageUrl = photoResult.Url.ToString();
-            //    editVM.ProfileImageUrl = user.ProfileImageUrl;
-
-            //    await _userManager.UpdateAsync(user);
-
-            //    return View(editVM);
-            //}
-
             user.Passport = editVM.Passport;
             user.DYears = editVM.DYears;
-            user.Rating = editVM.Rating;
-            user.HomeAddress = editVM.HomeAddress;
             user.Telephone = editVM.Telephone;
 
             await _userManager.UpdateAsync(user);
 
-            return RedirectToAction("Detail", "User", new { user.Id });
+            return RedirectToAction("Index", "Dashboard");
         }
     }
 }

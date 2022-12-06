@@ -46,9 +46,9 @@
                         <!-- Password input -->
                         <div class="form-outline mb-4">
                             <label asp-for="Password" class="form-label"></label>
-                            <input type="Password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                   title="Must contain at least one number, one non alphanumeric, one uppercase and lowercase letter, and at least 8 or more characters"
-                                   required placeholder="Input Password" />
+                            <input asp-for="Password" class="form-control"
+                                   title="Must contain 6 or more characters"
+                                   placeholder="Input Password" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
 

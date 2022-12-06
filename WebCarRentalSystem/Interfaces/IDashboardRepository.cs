@@ -7,5 +7,9 @@ namespace WebCarRentalSystem.Interfaces
     {
         Task<List<Contract>> GetAllUserContracts();
         Task<List<Accident>> GetAllUserAccidents();
+        Task<ApplicationUser> GetUserById(string id);
+        Task<ApplicationUser> GetUserByIdNoTracking(string id);
+        bool Edit(ApplicationUser user);
+        bool Save();
     }
 }

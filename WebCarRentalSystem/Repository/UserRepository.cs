@@ -36,6 +36,11 @@ namespace WebCarRentalSystem.Repository
             return await _context.Users.ToListAsync();
         }
 
+        public async Task<IEnumerable<ApplicationUser>> GetAllUsersNoTracking()
+        {
+            return await _context.Users.AsNoTracking().ToListAsync();
+        }
+
         public async Task<ApplicationUser> GetUserById(string id)
         {
             return await _context.Users.FindAsync(id);

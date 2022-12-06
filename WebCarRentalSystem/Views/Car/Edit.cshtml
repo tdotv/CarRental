@@ -16,10 +16,12 @@
             <div class="mb-3">
                 <label asp-for="Color"></label>
                 <input asp-for="Color" class="form-control" />
+                <span asp-validation-for="Color" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Rented"></label>
                 <select asp-for="Rented" class="form-select" id="exampleSelect2">
+                    <option value="" disabled selected>Choose Status</option>
                     <option>True</option>
                     <option>False</option>
                 </select>
@@ -27,6 +29,7 @@
             <div class="mb-3">
                 <label asp-for="CarRegNumber"></label>
                 <input asp-for="CarRegNumber" class="form-control" />
+                <span asp-validation-for="CarRegNumber" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
             <a asp-controller="Car" asp-action="Index" class="btn btn-secondary" style="width:150px">

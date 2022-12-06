@@ -1,0 +1,38 @@
+﻿@using WebCarRentalSystem.ViewModels
+@model EditProfileViewModel
+
+<body>
+    <form method="post" asp-action="EditProfile" enctype="multipart/form-data">
+        <div class="border p-3 mt-4">
+            <div class="row pb-2">
+                <h2 class="text-primary">Edit Profile</h2>
+                <hr />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Passport"></label>
+                <input asp-for="Passport" class="form-control" placeholder="AB1234567"/>
+                <span asp-validation-for="Passport" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="DYears"></label>
+                <input asp-for="DYears" class="form-control" />
+                <span asp-validation-for="DYears" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Telephone"></label>
+                <input asp-for="Telephone" class="form-control" placeholder="1-123-456-7890" />
+                <span asp-validation-for="Telephone" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+            <a asp-controller="Dashboard" asp-action="Index" class="btn btn-secondary" style="width:150px">
+                Dashboard
+            </a>
+        </div>
+    </form>
+</body>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

@@ -9,12 +9,14 @@
                 <hr />
             </div>
             <div class="mb-3">
-                <label asp-for="ModelCarId"></label>
+                <label asp-for="Model.Marka"></label>
                 <input asp-for="ModelCarId" disabled class="form-control" />
+                <span asp-validation-for="ModelCarId" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Color"></label>
                 <input asp-for="Color" disabled class="form-control" />
+                <span asp-validation-for="Color" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Rented"></label>
@@ -26,6 +28,7 @@
             <div class="mb-3">
                 <label asp-for="CarRegNumber"></label>
                 <input asp-for="CarRegNumber" disabled class="form-control" />
+                <span asp-validation-for="CarRegNumber" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-danger" style="width:150px">Delete</button>
             <a asp-controller="Car" asp-action="Index" class="btn btn-secondary" style="width:150px">

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ReflectionIT.Mvc.Paging;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
 using WebCarRentalSystem.ViewModels;
@@ -21,7 +20,7 @@ namespace WebCarRentalSystem.Controllers
             ViewBag.ResultSortParm = sortOrder == "Result" ? "result_desc" : "Result";
             ViewData["CurrentFilter"] = searchString;
 
-            IEnumerable<Accident> accidents = await _accidentRepository.GetAllNoTracking();
+            IEnumerable<Accident> accidents = await _accidentRepository.GetAll();
 
             if (!String.IsNullOrEmpty(searchString))
             {

@@ -12,7 +12,7 @@ namespace WebCarRentalSystem.Controllers
             _dashboardRepository = dashboardRepository;
         }
 
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index()
         {
             var userAccidents = await _dashboardRepository.GetAllUserAccidents();
             var userContracts = await _dashboardRepository.GetAllUserContracts();
@@ -24,5 +24,6 @@ namespace WebCarRentalSystem.Controllers
             
             return View(dashboardViewModel);
         }
+
     }
 }

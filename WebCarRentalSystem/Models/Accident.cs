@@ -8,16 +8,11 @@ namespace WebCarRentalSystem.Models
     {
         [Key]
         public int Id { get; set; }
-
-        [DisplayName("Dtp Date")]
         public DateTime DateDtp { get; set; }
-
-        public string? Collisions { get; set; }
-
-        public decimal? Result { get; set; }
+        public string Collisions { get; set; }
+        public decimal Result { get; set; }
 
         [ForeignKey("Contract")]
-        [Required(ErrorMessage = "Please Enter Contract Id")]
         public int ContractId { get; set; }
         public Contract Contract { get; set; }
 

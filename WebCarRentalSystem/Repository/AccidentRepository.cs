@@ -33,7 +33,7 @@ namespace WebCarRentalSystem.Repository
 
         public async Task<IEnumerable<Accident>> GetAll()
         {
-            return await _context.Accident.ToListAsync();
+            return await _context.Accident.Include(p => p.Contract).ToListAsync();
         }
 
         public async Task<IEnumerable<Accident>> GetAllNoTracking()

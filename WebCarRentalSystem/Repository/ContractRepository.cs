@@ -33,7 +33,7 @@ namespace WebCarRentalSystem.Repository
 
         public async Task<IEnumerable<Contract>> GetAll()
         {
-            return await _context.Contract.ToListAsync();
+            return await _context.Contract.Include(p => p.Car).ToListAsync();
         }
 
         public async Task<IEnumerable<Contract>> GetAllNoTracking()
@@ -43,12 +43,12 @@ namespace WebCarRentalSystem.Repository
 
         public async Task<Contract> GetByIdAsync(int id)
         {
-            return await _context.Contract.FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Contract?.FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public async Task<Contract> GetByIdAsyncNoTracking(int id)
         {
-            return await _context.Contract.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Contract?.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public bool Save()

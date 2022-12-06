@@ -8,21 +8,14 @@ namespace WebCarRentalSystem.Models
     {
         [Key]
         public int Id { get; set; }
-
-        [DisplayName("Date Contract")]
-        public DateTime? DateContract { get; set; }
-
-        [DisplayName("Date End")]
-        public DateTime? DateEnd { get; set; }
+        public DateTime DateContract { get; set; }
+        public DateTime DateEnd { get; set; }
+        public decimal ContractDays { get; set; }
+        public decimal Price { get; set; }
 
         [ForeignKey("Car")]
-        public int? CarId { get; set; }
-        public Car? Car { get; set; }
-
-        [DisplayName("Contract Days")]
-        public decimal? ContractDays { get; set; }
-
-        public decimal? Price { get; set; }
+        public int CarId { get; set; }
+        public Car Car { get; set; }
 
         [ForeignKey("ApplicationUser")]
         public string? ApplicationUserId { get; set; }

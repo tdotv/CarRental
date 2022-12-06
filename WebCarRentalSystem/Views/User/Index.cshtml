@@ -1,0 +1,50 @@
+﻿@using WebCarRentalSystem.ViewModels
+@model List<UserViewModel>
+
+<body>
+    <div class="container p-3">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h2 class="text-primary">User List</h2>
+            </div>
+        </div>
+    </div>
+
+    <table class=" table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    User Name
+                </th>
+                <th>
+                    Passport
+                </th>
+                <th>
+                    DYears
+                </th>
+                <th>
+                    Telephone
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td width="17%">
+                        @obj.UserName
+                    </td>
+                    <td width="17%">
+                        @obj.Passport
+                    </td>
+                    <td width="17%">
+                        @obj.DYears
+                    </td>
+                    <td width="17%">
+                        @obj.Telephone
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>

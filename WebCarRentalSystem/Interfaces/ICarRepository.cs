@@ -9,9 +9,6 @@ namespace WebCarRentalSystem.Interfaces
         Task<IEnumerable<Car>> GetAllNoTracking();
         Task<Car> GetByIdAsync(int id);
         Task<Car> GetByIdAsyncNoTracking(int id);
-        Task<IEnumerable<Car>> GetCarByRegNum(string CarRegNumber);
-        Task<IEnumerable<Car>> GetModel(string model);
-        Task<IEnumerable<Car>> GetMarka(string model);
         bool Add(Car car);
         bool Edit(Car car);
         bool Delete(Car car);

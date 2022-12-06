@@ -14,11 +14,13 @@ namespace WebCarRentalSystem.Models
         public int ModelCarId { get; set; }
         public ModelCar Model { get; set; }
 
-        public string? Color { get; set; }
+        public string Color { get; set; }
 
-        public bool? Rented { get; set; }
+        public bool Rented { get; set; }
 
         [DisplayName("Registration Number")]
-        public string? CarRegNumber { get; set; }
+        public string CarRegNumber { get; set; }
+
+        public IEnumerable<Contract> Contracts { get; set; }
     }
 }

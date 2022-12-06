@@ -21,7 +21,7 @@ namespace WebCarRentalSystem.Controllers
             ViewBag.CarRegNumberSortParm = sortOrder == "CarRegNumber" ? "carRegNumber_desc" : "CarRegNumber";
             ViewData["CurrentFilter"] = searchString;
 
-            IEnumerable<Car> cars = await _carRepository.GetAllNoTracking();
+            IEnumerable<Car> cars = await _carRepository.GetAll();
 
             if (!string.IsNullOrEmpty(searchString))
             {

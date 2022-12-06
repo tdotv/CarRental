@@ -15,7 +15,7 @@ namespace WebCarRentalSystem.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder)
         {
             ViewBag.DateContractSortParm = sortOrder == "DateContract" ? "dateContract_desc" : "DateContract";
             ViewBag.DateEndSortParm = sortOrder == "DateEnd" ? "dateEnd_desc" : "DateEnd";
@@ -66,6 +66,7 @@ namespace WebCarRentalSystem.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(CreateContractViewModel contractVM)
         {
             if (ModelState.IsValid)
@@ -75,10 +76,11 @@ namespace WebCarRentalSystem.Controllers
                     DateContract = contractVM.DateContract,
                     DateEnd = contractVM.DateEnd,
                     CarId = contractVM.CarId,
-                    ContractDays = contractVM.ContractDays,
-                    Price = contractVM.Price,
+                    ContractDays = contractVM.DateEnd.Day - contractVM.DateContract.Day,
+                    Price = (contractVM.DateEnd.Day - contractVM.DateContract.Day) * 80,
                     ApplicationUserId = contractVM.ApplicationUserId
                 };
+
                 _contractRepository.Add(contract);
                 TempData["success"] = "Contract created successfully";
                 return RedirectToAction("Index");

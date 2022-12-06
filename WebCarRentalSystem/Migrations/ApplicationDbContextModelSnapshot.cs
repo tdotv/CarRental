@@ -167,6 +167,7 @@ namespace WebCarRentalSystem.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Collisions")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ContractId")
@@ -175,7 +176,7 @@ namespace WebCarRentalSystem.Migrations
                     b.Property<DateTime>("DateDtp")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("Result")
+                    b.Property<decimal>("Result")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -184,7 +185,7 @@ namespace WebCarRentalSystem.Migrations
 
                     b.HasIndex("ContractId");
 
-                    b.ToTable("Accident");
+                    b.ToTable("Accident", (string)null);
                 });
 
             modelBuilder.Entity("WebCarRentalSystem.Models.ApplicationUser", b =>
@@ -209,9 +210,6 @@ namespace WebCarRentalSystem.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("HomeAddress")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -229,10 +227,6 @@ namespace WebCarRentalSystem.Migrations
                     b.Property<string>("Passport")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -242,14 +236,11 @@ namespace WebCarRentalSystem.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<decimal?>("Rating")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Telephone")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Telephone")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -280,22 +271,24 @@ namespace WebCarRentalSystem.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CarRegNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Color")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ModelCarId")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("Rented")
+                    b.Property<bool>("Rented")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ModelCarId");
 
-                    b.ToTable("Car");
+                    b.ToTable("Car", (string)null);
                 });
 
             modelBuilder.Entity("WebCarRentalSystem.Models.Contract", b =>
@@ -309,19 +302,19 @@ namespace WebCarRentalSystem.Migrations
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("CarId")
+                    b.Property<int>("CarId")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("ContractDays")
+                    b.Property<decimal>("ContractDays")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime?>("DateContract")
+                    b.Property<DateTime>("DateContract")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DateEnd")
+                    b.Property<DateTime>("DateEnd")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -330,7 +323,7 @@ namespace WebCarRentalSystem.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("Contract");
+                    b.ToTable("Contract", (string)null);
                 });
 
             modelBuilder.Entity("WebCarRentalSystem.Models.ModelCar", b =>
@@ -342,15 +335,17 @@ namespace WebCarRentalSystem.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Class")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("EngineValue")
+                    b.Property<decimal>("EngineValue")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("FuelConsumption")
+                    b.Property<decimal>("FuelConsumption")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Image")
@@ -358,20 +353,24 @@ namespace WebCarRentalSystem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ManufactureYear")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Marka")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Model")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Transmission")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ModelCar");
+                    b.ToTable("ModelCar", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -445,7 +444,7 @@ namespace WebCarRentalSystem.Migrations
             modelBuilder.Entity("WebCarRentalSystem.Models.Car", b =>
                 {
                     b.HasOne("WebCarRentalSystem.Models.ModelCar", "Model")
-                        .WithMany()
+                        .WithMany("Cars")
                         .HasForeignKey("ModelCarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -461,7 +460,9 @@ namespace WebCarRentalSystem.Migrations
 
                     b.HasOne("WebCarRentalSystem.Models.Car", "Car")
                         .WithMany()
-                        .HasForeignKey("CarId");
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ApplicationUser");
 
@@ -473,6 +474,11 @@ namespace WebCarRentalSystem.Migrations
                     b.Navigation("Accidents");
 
                     b.Navigation("Contracts");
+                });
+
+            modelBuilder.Entity("WebCarRentalSystem.Models.ModelCar", b =>
+                {
+                    b.Navigation("Cars");
                 });
 #pragma warning restore 612, 618
         }
