@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Drawing.Printing;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
 using WebCarRentalSystem.ViewModels;
@@ -13,7 +14,7 @@ namespace WebCarRentalSystem.Controllers
             _accidentRepository = accidentRepository;
         }
 
-        public async Task<IActionResult> Index(string sortOrder, string searchString, int page = 1)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewBag.DateDtpSortParm = sortOrder == "DateDtp" ? "dateDtp_desc" : "DateDtp";
             ViewBag.CollisionsSortParm = sortOrder == "Collisions" ? "collisions_desc" : "Collisions";

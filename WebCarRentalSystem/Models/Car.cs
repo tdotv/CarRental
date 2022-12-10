@@ -21,6 +21,6 @@ namespace WebCarRentalSystem.Models
         [DisplayName("Registration Number")]
         public string CarRegNumber { get; set; }
 
-        public IEnumerable<Contract> Contracts { get; set; }
+        public string City { get; set; }
     }
 }

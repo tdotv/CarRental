@@ -9,7 +9,7 @@ namespace WebCarRentalSystem.ViewModels
         public string Marka { get; set; }
         [Required]
         public IFormFile Image { get; set; }
-        public string URL { get; set; }
+        public string? URL { get; set; }
         public string Description { get; set; }
         public decimal FuelConsumption { get; set; }
         public string Transmission { get; set; }

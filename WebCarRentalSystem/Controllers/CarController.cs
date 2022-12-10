@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
 using WebCarRentalSystem.ViewModels;
@@ -16,37 +15,24 @@ namespace WebCarRentalSystem.Controllers
 
         public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            ViewBag.ColorSortParm = sortOrder == "Color" ? "color_desc" : "Color";
             ViewBag.RentedSortParm = sortOrder == "Rented" ? "rented_desc" : "Rented";
-            ViewBag.CarRegNumberSortParm = sortOrder == "CarRegNumber" ? "carRegNumber_desc" : "CarRegNumber";
             ViewData["CurrentFilter"] = searchString;
 
             IEnumerable<Car> cars = await _carRepository.GetAll();
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                cars = cars.Where(s => s.CarRegNumber.Contains(searchString));
+                cars = cars.Where(s => s.Model.Marka.Contains(searchString)
+                                       || s.Model.Model.Contains(searchString));
             }
 
             switch (sortOrder)
             {
-                case "Color":
-                    cars = cars.OrderBy(s => s.Color);
-                    break;
-                case "color_desc":
-                    cars = cars.OrderByDescending(s => s.Color);
-                    break;
                 case "Rented":
                     cars = cars.OrderBy(s => s.Rented);
                     break;
                 case "rented_desc":
                     cars = cars.OrderByDescending(s => s.Rented);
-                    break;
-                case "CarRegNumber":
-                    cars = cars.OrderBy(s => s.CarRegNumber);
-                    break;
-                case "carRegNumber_desc":
-                    cars = cars.OrderByDescending(s => s.CarRegNumber);
                     break;
             }
             return View(cars);
@@ -68,7 +54,8 @@ namespace WebCarRentalSystem.Controllers
                     ModelCarId = carVM.ModelCarId,
                     Color = carVM.Color,
                     Rented = carVM.Rented,
-                    CarRegNumber = carVM.CarRegNumber
+                    CarRegNumber = carVM.CarRegNumber,
+                    City = carVM.City,
                 };
                 _carRepository.Add(car);
                 TempData["success"] = "Car created successfully";
@@ -91,7 +78,8 @@ namespace WebCarRentalSystem.Controllers
                 ModelCarId = car.ModelCarId,
                 Color = car.Color,
                 Rented = car.Rented,
-                CarRegNumber = car.CarRegNumber
+                CarRegNumber = car.CarRegNumber,
+                City = car.City,
             };
             return View(carVM);
         }
@@ -113,7 +101,8 @@ namespace WebCarRentalSystem.Controllers
                     ModelCarId = carVM.ModelCarId,
                     Color = carVM.Color,
                     Rented = carVM.Rented,
-                    CarRegNumber = carVM.CarRegNumber
+                    CarRegNumber = carVM.CarRegNumber,
+                    City = carVM.City,
                 };
                 _carRepository.Edit(car);
                 TempData["success"] = "Car updated successfully";

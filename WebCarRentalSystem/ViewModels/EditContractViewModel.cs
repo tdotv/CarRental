@@ -4,7 +4,9 @@ namespace WebCarRentalSystem.ViewModels
 {
     public class EditContractViewModel
     {
+        [DataType(DataType.Date)]
         public DateTime DateContract { get; set; }
+        [DataType(DataType.Date)]
         public DateTime DateEnd { get; set; }
         [Required]
         public int CarId { get; set; }

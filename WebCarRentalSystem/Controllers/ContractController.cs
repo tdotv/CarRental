@@ -15,14 +15,23 @@ namespace WebCarRentalSystem.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, int page = 0)
         {
+            const int PageSize = 5;
+
             ViewBag.DateContractSortParm = sortOrder == "DateContract" ? "dateContract_desc" : "DateContract";
             ViewBag.DateEndSortParm = sortOrder == "DateEnd" ? "dateEnd_desc" : "DateEnd";
             ViewBag.ContractDaysSortParm = sortOrder == "ContractDays" ? "contractDays_desc" : "ContractDays";
             ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
 
             IEnumerable<Contract> contracts = await _contractRepository.GetAll();
+
+            var count = contracts.Count();
+            var data = contracts.Skip(page * PageSize).Take(PageSize).ToList();
+
+            //  Pagination
+            ViewBag.MaxPage = (count / PageSize) - (count % PageSize == 0 ? 1 : 0);
+            ViewBag.Page = page;
 
             switch (sortOrder)
             {
@@ -51,7 +60,7 @@ namespace WebCarRentalSystem.Controllers
                     contracts = contracts.OrderByDescending(s => s.Price);
                     break;
             }
-            return View(contracts);
+            return View(data);
         }
 
         [HttpGet]
@@ -125,8 +134,8 @@ namespace WebCarRentalSystem.Controllers
                     DateContract = contractVM.DateContract,
                     DateEnd = contractVM.DateEnd,
                     CarId = contractVM.CarId,
-                    ContractDays = contractVM.ContractDays,
-                    Price = contractVM.Price
+                    ContractDays = contractVM.DateEnd.Day - contractVM.DateContract.Day,
+                    Price = (contractVM.DateEnd.Day - contractVM.DateContract.Day) * 80,
                 };
                 _contractRepository.Edit(contract);
                 TempData["success"] = "Contract updated successfully";

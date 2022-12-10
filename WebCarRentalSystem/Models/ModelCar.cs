@@ -30,7 +30,5 @@ namespace WebCarRentalSystem.Models
 
         [DisplayName("Manufacture Year")]
         public string ManufactureYear { get; set; }
-
-        public IEnumerable<Car> Cars { get; set; }
     }
 }

@@ -1,9 +1,5 @@
 ﻿@model IEnumerable<Contract>
 
-@{
-    ViewData["Title"] = "Contract";
-}
-
 <body>
     <div class="container p-3">
         <div class="row pt-4">
@@ -71,4 +67,18 @@
             }
         </tbody>
     </table>
+    @if (ViewBag.Page > 0)
+    {
+        <a href="@Url.Action("Index", new { page = ViewBag.Page - 1 })"
+       class="btn btn-default">
+            &laquo; Prev
+        </a>
+    }
+    @if (ViewBag.Page < ViewBag.MaxPage)
+    {
+        <a href="@Url.Action("Index", new { page = ViewBag.Page + 1 })"
+       class="btn btn-default">
+            Next &raquo;
+        </a>
+    }
 </body>

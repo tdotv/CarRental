@@ -12,5 +12,6 @@ namespace WebCarRentalSystem.ViewModels
         [RegularExpression(@"^[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}$", ErrorMessage = "The Car Registration Number field is not valid")]
         [DisplayName("Registration Number")]
         public string CarRegNumber { get; set; }
+        public string City { get; set; }
     }
 }

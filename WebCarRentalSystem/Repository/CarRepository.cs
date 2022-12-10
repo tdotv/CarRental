@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using WebCarRentalSystem.Areas.Identity.Data;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
@@ -10,7 +9,6 @@ namespace WebCarRentalSystem.Repository
     {
 
         private readonly ApplicationDbContext _context;
-        public Car Car { get; set; }
 
         public CarRepository(ApplicationDbContext context)
         {
@@ -37,7 +35,7 @@ namespace WebCarRentalSystem.Repository
 
         public async Task<IEnumerable<Car>> GetAll()
         {
-            return await _context.Car.Include(p => p.Model).ToListAsync();
+            return await _context.Car.Include(i => i.Model).ToListAsync();
         }
 
         public async Task<IEnumerable<Car>> GetAllNoTracking()
@@ -54,6 +52,16 @@ namespace WebCarRentalSystem.Repository
         {
             return await _context.Car?.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
         }
+
+        public async Task<IEnumerable<Car>> GetCarByCity(string city)
+        {
+            return await _context.Car.Include(i => i.Model).Where(i => i.City.Equals(city)).Distinct().ToListAsync();
+        }
+
+        //public async Task<IEnumerable<Car>> GetSliceAsync(int offset, int size)
+        //{
+        //    return await _context.Car.Include(i => i.Model).Skip(offset).Take(size).ToListAsync();
+        //}
 
         public bool Save()
         {

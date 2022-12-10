@@ -185,7 +185,7 @@ namespace WebCarRentalSystem.Migrations
 
                     b.HasIndex("ContractId");
 
-                    b.ToTable("Accident", (string)null);
+                    b.ToTable("Accident");
                 });
 
             modelBuilder.Entity("WebCarRentalSystem.Models.ApplicationUser", b =>
@@ -274,6 +274,10 @@ namespace WebCarRentalSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Color")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -288,7 +292,7 @@ namespace WebCarRentalSystem.Migrations
 
                     b.HasIndex("ModelCarId");
 
-                    b.ToTable("Car", (string)null);
+                    b.ToTable("Car");
                 });
 
             modelBuilder.Entity("WebCarRentalSystem.Models.Contract", b =>
@@ -323,7 +327,7 @@ namespace WebCarRentalSystem.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("Contract", (string)null);
+                    b.ToTable("Contract");
                 });
 
             modelBuilder.Entity("WebCarRentalSystem.Models.ModelCar", b =>
@@ -370,7 +374,7 @@ namespace WebCarRentalSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ModelCar", (string)null);
+                    b.ToTable("ModelCar");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -459,7 +463,7 @@ namespace WebCarRentalSystem.Migrations
                         .HasForeignKey("ApplicationUserId");
 
                     b.HasOne("WebCarRentalSystem.Models.Car", "Car")
-                        .WithMany()
+                        .WithMany("Contracts")
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -473,6 +477,11 @@ namespace WebCarRentalSystem.Migrations
                 {
                     b.Navigation("Accidents");
 
+                    b.Navigation("Contracts");
+                });
+
+            modelBuilder.Entity("WebCarRentalSystem.Models.Car", b =>
+                {
                     b.Navigation("Contracts");
                 });
 

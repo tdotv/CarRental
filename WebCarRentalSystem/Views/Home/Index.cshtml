@@ -1,93 +1,148 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using WebCarRentalSystem.ViewModels
+@model HomeViewModel
 
 <body>
     <main role="main">
+        <section>
+            <div class="container">
+                <br />
+                @if (Model.Cars == null)
+                {
+                    <h1 class="text-center fw-light">
+                        There are no cars in your area ( ˘︹˘ )
+                    </h1>
+                }
+                else
+                {
+                    <div class="row justify-content-between mb-5">
+                        <div class="col-auto">
+                            <h3>Cars near @Model.City, @Model.Region</h3>
+                        </div>
+                        <!--end of col-->
+                        <div class="col-auto">
+                            <a href="/ModelCar/Index" class="btn btn-outline-primary">View all</a>
+                        </div>
+                        <!--end of col-->
+                    </div>
+                    <ul class=" row list-unstyled">
+                        @foreach (var item in Model.Cars)
+                        {
+                            <li class="col-12 col-md-6 col-lg-4">
+                                <div class="card">
+                                    <a href="/ModelCar/Detail/@item.Id">
+                                        <img class="card-img-top" src="@item.Model.Image" alt="Card image cap">
+                                    </a>
+                                    <div class="card-body">
+                                            <h4 class="card-title">@item.Model.Marka @item.Model.Model</h4>
+                                            <p class="card-text text-body">Is this car available? @item.Rented</p>
+                                    </div>
+                                    <div class="card-footer card-footer-borderless d-flex justify-content-between">
+                                        <div class="text-small">
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item"><i class="icon-heart"></i>@item.Model.Id ·</li>
+                                                <li class="list-inline-item"><i class="icon-message"></i>@item.Model.Class</li>
+                                            </ul>
+                                        </div>
+                                        <div class="dropup">
+                                            <a type="btn btn-success" asp-controller="ModelCar" asp-action="Detail" asp-route-id="@item.Id"
+                                       class="btn btn-sm btn-outline-secondary">View</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                }
+                <!--end of row-->
+            </div>
+            <!--end of container-->
+        </section>
+
         <!-- Marketing messaging and featurettes
         ================================================== -->
         <!-- Wrap the rest of the page in another container to center all the content. -->
+        <section>
+            <div class="container marketing" style="margin-top:50px">
 
-        <div class="container marketing" style="margin-top:50px">
+                <!-- Three columns of text below the carousel -->
+                <div class="row">
+                    <div class="col-lg-4">
+                        <img class="rounded-circle" src="https://i.postimg.cc/m2K6xJb4/preview.png" alt="Generic placeholder image" width="170" height="140">
+                        <h2>No hidden charges</h2>
+                        <p></p>
+                    </div><!-- /.col-lg-4 -->
+                    <div class="col-lg-4">
+                        <img class="rounded-circle" src="https://i.postimg.cc/VNkCrB6h/image.png" alt="Generic placeholder image" width="140" height="140">
+                        <h2>Take your car anytime</h2>
+                        <p></p>
+                    </div><!-- /.col-lg-4 -->
+                    <div class="col-lg-4">
+                        <img class="rounded-circle" src="https://i.postimg.cc/qvfhwH72/car.png" alt="Generic placeholder image" width="140" height="140">
+                        <h2>Only new cars</h2>
+                        <p></p>
+                    </div><!-- /.col-lg-4 -->
+                </div><!-- /.row -->
+                <!-- START THE FEATURETTES -->
 
-            <!-- Three columns of text below the carousel -->
-            <div class="row">
-                <div class="col-lg-4">
-                    <img class="rounded-circle" src="https://i.postimg.cc/m2K6xJb4/preview.png" alt="Generic placeholder image" width="170" height="140">
-                    <h2>No hidden charges</h2>
-                    <p></p>
-                </div><!-- /.col-lg-4 -->
-                <div class="col-lg-4">
-                    <img class="rounded-circle" src="https://i.postimg.cc/VNkCrB6h/image.png" alt="Generic placeholder image" width="140" height="140">
-                    <h2>Take your car anytime</h2>
-                    <p></p>
-                </div><!-- /.col-lg-4 -->
-                <div class="col-lg-4">
-                    <img class="rounded-circle" src="https://i.postimg.cc/qvfhwH72/car.png" alt="Generic placeholder image" width="140" height="140">
-                    <h2>Only new cars</h2>
-                    <p></p>
-                </div><!-- /.col-lg-4 -->
-            </div><!-- /.row -->
-            <!-- START THE FEATURETTES -->
+                <hr class="featurette-divider">
 
-            <hr class="featurette-divider">
-
-            <div class="row featurette">
-                <div class="col-md-7">
-                    <h2 class="featurette-heading"> Rental Car Types </h2>
-                    <p class="lead">
-                        When you’re thinking of renting a car, you probably have a good idea of the kind of car you want. Depending on your trip, you might even have an exact model in mind.
-                        From compact cars to spacious SUVs and vans, we offer a large range of reliable vehicles to suit your needs.
-                    </p>
-                    <a class="btn btn-secondary" href="/ModelCar">View details »</a>
-                </div>
-                <div class="col-md-5">
-                    <img class="featurette-image img-fluid mx-auto" data-src="holder.js/700x400/auto" alt="700x400"
-                         src="https://i.postimg.cc/0jqFZNhL/car-types.png" data-holder-rendered="true" style="width: 700px; height: 400px;">
-                </div>
-            </div>
-
-            <hr class="featurette-divider">
-
-            <div class="row featurette">
-                <div class="col-md-7 order-md-2">
-                    <h2 class="featurette-heading"> Belarus Rental Locations </h2>
-                    <p class="lead">
-                        No matter where you go in this great country, you’ll have no shortage of rental options.
-                        Car To Moon are the most widely available supplier and can be found in all major cities.
-                        Find and compare all your choices with Airport Rentals to secure your Belarus vehicle hire at a fantastic price and enjoy free additional benefits.
-                        Note you must be at least 19 to rent a car in Belarus.
-                    </p>
-                </div>
-
-                <div class="col-md-5 order-md-1">
-                    <img class="featurette-image img-fluid mx-auto" data-src="holder.js/700x400/auto" alt="700x400"
-                         src="https://i.postimg.cc/tJZQvfgx/belarus.png" data-holder-rendered="true" style="width: 700px; height: 400px;">
-                </div>
-            </div>
-
-            <hr class="featurette-divider">
-
-            <div class="row featurette">
-                <div class="col-md-7">
-                    <h2 class="featurette-heading"> Car Rental Deals </h2>
-                    <p class="lead">
-                        Find out about our latest offers to drive away with a great car rental deal from any of our global locations.
-                        As the world’s biggest online car rental service, we specialize in finding the cheapest car rental deals from major brands such as Hertz, Avis, Alamo, and Budget. 
-                        Daily, weekly, or monthly car rentals… just fill in our search form to compare deals from different companies – and find out how much you can save when you rent a car from us.
+                <div class="row featurette">
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading"> Rental Car Types </h2>
+                        <p class="lead">
+                            When you’re thinking of renting a car, you probably have a good idea of the kind of car you want. Depending on your trip, you might even have an exact model in mind.
+                            From compact cars to spacious SUVs and vans, we offer a large range of reliable vehicles to suit your needs.
                         </p>
+                        <a class="btn btn-secondary" href="/ModelCar">View details »</a>
+                    </div>
+                    <div class="col-md-5">
+                        <img class="featurette-image img-fluid mx-auto" data-src="holder.js/700x400/auto" alt="700x400"
+                             src="https://i.postimg.cc/0jqFZNhL/car-types.png" data-holder-rendered="true" style="width: 700px; height: 400px;">
+                    </div>
                 </div>
-                <div class="col-md-5">
-                    <img class="featurette-image img-fluid mx-auto" data-src="holder.js/700x400/auto" alt="700x400"
-                         src="https://i.postimg.cc/rp1pQDHk/family.png" data-holder-rendered="true" style="width: 700px; height: 400px;">
+
+                <hr class="featurette-divider">
+
+                <div class="row featurette">
+                    <div class="col-md-7 order-md-2">
+                        <h2 class="featurette-heading"> Belarus Rental Locations </h2>
+                        <p class="lead">
+                            No matter where you go in this great country, you’ll have no shortage of rental options.
+                            Car To Moon are the most widely available supplier and can be found in all major cities.
+                            Note you must be at least 19 to rent a car in Belarus.
+                        </p>
+                    </div>
+
+                    <div class="col-md-5 order-md-1">
+                        <img class="featurette-image img-fluid mx-auto" data-src="holder.js/700x400/auto" alt="700x400"
+                             src="https://i.postimg.cc/tJZQvfgx/belarus.png" data-holder-rendered="true" style="width: 700px; height: 400px;">
+                    </div>
                 </div>
-            </div>
 
-            <hr class="featurette-divider">
+                <hr class="featurette-divider">
 
-            <!-- /END THE FEATURETTES -->
+                <div class="row featurette">
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading"> Car Rental Deals </h2>
+                        <p class="lead">
+                            Find out about our latest offers to drive away with a great car rental deal from any of our global locations.
+                            As the world’s biggest online car rental service, we specialize in finding the cheapest car rental deals from major brands such as Hertz, Avis, Alamo, and Budget.
+                        </p>
+                    </div>
+                    <div class="col-md-5">
+                        <img class="featurette-image img-fluid mx-auto" data-src="holder.js/700x400/auto" alt="700x400"
+                             src="https://i.postimg.cc/rp1pQDHk/family.png" data-holder-rendered="true" style="width: 700px; height: 400px;">
+                    </div>
+                </div>
 
-        </div><!-- /.container -->
+                <hr class="featurette-divider">
+
+                <!-- /END THE FEATURETTES -->
+
+            </div><!-- /.container -->
+        </section>
+
         <!-- FOOTER -->
         <footer class="container">
             <p class="float-right"><a href="#">Back to top</a></p>
