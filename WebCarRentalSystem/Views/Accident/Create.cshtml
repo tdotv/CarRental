@@ -9,22 +9,21 @@
                 <hr />
             </div>
             <div class="mb-3">
-                <label asp-for="ContractId"></label>
-                <input asp-for="ContractId" class="form-control" />
-                <span asp-validation-for="ContractId" class="text-danger"></span>
+                <label>Date Contract</label>
+                <select asp-for="ContractId" class="form-select"
+                        asp-items="@(new SelectList(Model.Contract, "Id", "DateContract"))">
+                    <option value="" disabled selected>Select the date</option>
+                </select>
+                <span asp-validation-for="ContractId" class="text-danger d-block"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Collisions"></label>
-                <input asp-for="Collisions" class="form-control" />
+                <input asp-for="Collisions" class="form-control" placeholder="Collisions" />
                 <span asp-validation-for="Collisions" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Result"></label>
-                <select asp-for="Result" class="form-select" id="exampleSelect2">
-                    <option>50</option>
-                    <option>100</option>
-                    <option>150</option>
-                </select>
+                <input asp-for="Result" class="form-control" placeholder="Result" />
                 <span asp-validation-for="Result" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary" style="width:150px">Create</button>

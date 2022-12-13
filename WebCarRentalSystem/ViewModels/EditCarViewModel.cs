@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using WebCarRentalSystem.Models;
 
 namespace WebCarRentalSystem.ViewModels
 {
@@ -9,6 +10,7 @@ namespace WebCarRentalSystem.ViewModels
         public int ModelCarId { get; set; }
         public string Color { get; set; }
         public bool Rented { get; set; }
+
         [RegularExpression(@"^[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}$", ErrorMessage = "The Car Registration Number field is not valid")]
         [DisplayName("Registration Number")]
         public string CarRegNumber { get; set; }

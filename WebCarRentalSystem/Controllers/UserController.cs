@@ -18,6 +18,7 @@ namespace WebCarRentalSystem.Controllers
         }
 
         [HttpGet("users")]
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var users = await _userRepository.GetAllUsers();

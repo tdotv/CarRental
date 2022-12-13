@@ -10,20 +10,23 @@
             </div>
             <div class="mb-3">
                 <label asp-for="ContractId"></label>
-                <input asp-for="ContractId" class="form-control" />
+                <input asp-for="ContractId" class="form-control" placeholder="Contract ID" />
                 <span asp-validation-for="ContractId" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="DateDtp"></label>
-                <input asp-for="DateDtp" class="form-control" />
+                <input asp-for="DateDtp" class="form-control" placeholder="Date Dtp" />
+                <span asp-validation-for="DateDtp" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Collisions"></label>
-                <input asp-for="Collisions" class="form-control" />
+                <input asp-for="Collisions" class="form-control" placeholder="Collisions" />
+                <span asp-validation-for="Collisions" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Result"></label>
-                <input asp-for="Result" class="form-control" />
+                <input asp-for="Result" class="form-control" placeholder="Result" />
+                <span asp-validation-for="Result" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary" style="width:150px">Edit</button>
             <a asp-controller="Accident" asp-action="Index" class="btn btn-secondary" style="width:150px">

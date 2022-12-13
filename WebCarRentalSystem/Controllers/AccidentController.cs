@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Drawing.Printing;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using WebCarRentalSystem.Areas.Identity.Data;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
 using WebCarRentalSystem.ViewModels;
@@ -9,11 +10,14 @@ namespace WebCarRentalSystem.Controllers
     public class AccidentController : Controller
     {
         private readonly IAccidentRepository _accidentRepository;
-        public AccidentController(IAccidentRepository accidentRepository)
+        private readonly ApplicationDbContext _context;
+        public AccidentController(IAccidentRepository accidentRepository, ApplicationDbContext context)
         {
             _accidentRepository = accidentRepository;
+            _context = context;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewBag.DateDtpSortParm = sortOrder == "DateDtp" ? "dateDtp_desc" : "DateDtp";
@@ -53,10 +57,8 @@ namespace WebCarRentalSystem.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
+        [Authorize]
+        public IActionResult Create() => View("Create", ViewModelFactory.CreateAccident(new Accident(), _context.Contract));
 
         [HttpPost]
         public IActionResult Create(CreateAccidentViewModel accidentVM)
@@ -82,6 +84,7 @@ namespace WebCarRentalSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             var accident = await _accidentRepository.GetByIdAsync(id);
@@ -126,6 +129,7 @@ namespace WebCarRentalSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             var accidentDetails = await _accidentRepository.GetByIdAsync(id);

@@ -185,7 +185,7 @@ namespace WebCarRentalSystem.Migrations
 
                     b.HasIndex("ContractId");
 
-                    b.ToTable("Accident");
+                    b.ToTable("Accident", (string)null);
                 });
 
             modelBuilder.Entity("WebCarRentalSystem.Models.ApplicationUser", b =>
@@ -292,7 +292,7 @@ namespace WebCarRentalSystem.Migrations
 
                     b.HasIndex("ModelCarId");
 
-                    b.ToTable("Car");
+                    b.ToTable("Car", (string)null);
                 });
 
             modelBuilder.Entity("WebCarRentalSystem.Models.Contract", b =>
@@ -327,7 +327,7 @@ namespace WebCarRentalSystem.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("Contract");
+                    b.ToTable("Contract", (string)null);
                 });
 
             modelBuilder.Entity("WebCarRentalSystem.Models.ModelCar", b =>
@@ -374,7 +374,7 @@ namespace WebCarRentalSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ModelCar");
+                    b.ToTable("ModelCar", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebCarRentalSystem.Models;
 
 namespace WebCarRentalSystem.ViewModels
 {
@@ -19,5 +20,8 @@ namespace WebCarRentalSystem.ViewModels
         [Required(ErrorMessage = "Please enter Result")]
         [Range(0, double.MaxValue)]
         public decimal Result { get; set; }
+
+        public Accident? Accident { get; set; }
+        public IEnumerable<Contract>? Contract { get; set; }
     }
 }

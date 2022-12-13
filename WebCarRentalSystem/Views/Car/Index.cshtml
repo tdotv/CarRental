@@ -43,7 +43,7 @@
                     <a asp-action="Index" asp-route-sortOrder="@ViewData["RentedSortParm"]">@Html.DisplayNameFor(model => model.Rented)</a>
                 </th>
                 <th>
-                    Registration Number
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["CarRegNumberSortParm"]">@Html.DisplayNameFor(model => model.CarRegNumber)</a>
                 </th>
                 <th>
                     City
@@ -55,7 +55,7 @@
             {
                 <tr>
                     <td width="20%">
-                        @obj.Model.Marka @obj.Model.Model
+                        @obj.Id · @obj.Model.Marka @obj.Model.Model
                     </td>
                     <td width="20%">
                         @obj.Color

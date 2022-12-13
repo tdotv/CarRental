@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using WebCarRentalSystem.Areas.Identity.Data;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
 using WebCarRentalSystem.ViewModels;
@@ -9,20 +11,18 @@ namespace WebCarRentalSystem.Controllers
     {
         private readonly IContractRepository _contractRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public ContractController(IContractRepository contractRepository, IHttpContextAccessor httpContextAccessor)
+        private readonly ApplicationDbContext _context;
+        public ContractController(IContractRepository contractRepository, IHttpContextAccessor httpContextAccessor, ApplicationDbContext context)
         {
             _contractRepository = contractRepository;
             _httpContextAccessor = httpContextAccessor;
+            _context = context;
         }
 
-        public async Task<IActionResult> Index(string sortOrder, int page = 0)
+        [Authorize]
+        public async Task<IActionResult> Index(int page = 0)
         {
             const int PageSize = 5;
-
-            ViewBag.DateContractSortParm = sortOrder == "DateContract" ? "dateContract_desc" : "DateContract";
-            ViewBag.DateEndSortParm = sortOrder == "DateEnd" ? "dateEnd_desc" : "DateEnd";
-            ViewBag.ContractDaysSortParm = sortOrder == "ContractDays" ? "contractDays_desc" : "ContractDays";
-            ViewBag.PriceSortParm = sortOrder == "Price" ? "price_desc" : "Price";
 
             IEnumerable<Contract> contracts = await _contractRepository.GetAll();
 
@@ -33,45 +33,15 @@ namespace WebCarRentalSystem.Controllers
             ViewBag.MaxPage = (count / PageSize) - (count % PageSize == 0 ? 1 : 0);
             ViewBag.Page = page;
 
-            switch (sortOrder)
-            {
-                case "DateContract":
-                    contracts = contracts.OrderBy(s => s.DateContract);
-                    break;
-                case "dateContract_desc":
-                    contracts = contracts.OrderByDescending(s => s.DateContract);
-                    break;
-                case "DateEnd":
-                    contracts = contracts.OrderBy(s => s.DateEnd);
-                    break;
-                case "dateEnd_desc":
-                    contracts = contracts.OrderByDescending(s => s.DateEnd);
-                    break;
-                case "ContractDays":
-                    contracts = contracts.OrderByDescending(s => s.ContractDays);
-                    break;
-                case "contractDays_desc":
-                    contracts = contracts.OrderByDescending(s => s.ContractDays);
-                    break;
-                case "Price":
-                    contracts = contracts.OrderByDescending(s => s.Price);
-                    break;
-                case "price_desc":
-                    contracts = contracts.OrderByDescending(s => s.Price);
-                    break;
-            }
             return View(data);
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
-            var curUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-            var createContractViewModel = new CreateContractViewModel
-            {
-                ApplicationUserId = curUserId
-            };
-            return View(createContractViewModel);
+            var curUserId = _httpContextAccessor?.HttpContext?.User.GetUserId();
+            return View("Create", ViewModelFactory.CreateContract(curUserId, new Contract(), _context.ModelCar));
         }
 
         [HttpPost]
@@ -80,13 +50,14 @@ namespace WebCarRentalSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                var contractDays = contractVM.DateEnd.Subtract(contractVM.DateContract);
                 var contract = new Contract
                 {
                     DateContract = contractVM.DateContract,
                     DateEnd = contractVM.DateEnd,
                     CarId = contractVM.CarId,
-                    ContractDays = contractVM.DateEnd.Day - contractVM.DateContract.Day,
-                    Price = (contractVM.DateEnd.Day - contractVM.DateContract.Day) * 80,
+                    ContractDays = contractDays.Days,
+                    Price = contractDays.Days * 80,
                     ApplicationUserId = contractVM.ApplicationUserId
                 };
 
@@ -102,6 +73,7 @@ namespace WebCarRentalSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             var contract = await _contractRepository.GetByIdAsync(id);
@@ -148,6 +120,7 @@ namespace WebCarRentalSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             var contractDetails = await _contractRepository.GetByIdAsync(id);

@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using WebCarRentalSystem.Areas.Identity.Data;
 using WebCarRentalSystem.Models;
 using WebCarRentalSystem.ViewModels;
@@ -26,34 +29,42 @@ namespace WebCarRentalSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+        public async Task<IActionResult> Login(LoginViewModel response)
         {
             if (!ModelState.IsValid)
             {
-                return View(loginViewModel);
+                return View(response);
             }
-            var user = await _userManager.FindByEmailAsync(loginViewModel.Email);
+            var user = await _userManager.FindByEmailAsync(response.Email);
 
             if (user != null)
             {
-                //  User is found, check password
-                var passwordCheck = await _userManager.CheckPasswordAsync(user, loginViewModel.Password);
+                var passwordCheck = await _userManager.CheckPasswordAsync(user, response.Password);
                 if (passwordCheck)
                 {
                     //  Password correct, sign in
-                    var result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, false, false);
+                    var result = await _signInManager.PasswordSignInAsync(user, response.Password, false, false);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Index", "Car");
-                    }   
+                        var claims = new List<Claim>()
+                        {
+                            new Claim(ClaimTypes.Name, response.Email)
+                        };
+                        var identity = new ClaimsIdentity(
+                            claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        var principal = new ClaimsPrincipal(identity);
+                        var props = new AuthenticationProperties();
+                        HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 //  Password is incorrect
                 TempData["Error"] = "Wrong credentials. Please try again";
-                return View(loginViewModel);
+                return View(response);
             }
             //  User not found
             TempData["Error"] = "Wrong credentials. Please try again";
-            return View(loginViewModel);
+            return View(response);
         }
 
         [HttpGet]
@@ -71,7 +82,7 @@ namespace WebCarRentalSystem.Controllers
                 ModelState.AddModelError("", "Wrong credentials");
                 return View(registerViewModel);
             }
-           
+
             var user = await _userManager.FindByEmailAsync(registerViewModel.Email);
             if (user != null)
             {
@@ -79,7 +90,7 @@ namespace WebCarRentalSystem.Controllers
                 return View(registerViewModel);
 
             }
-           
+
             var newUser = new ApplicationUser()
             {
                 Email = registerViewModel.Email,

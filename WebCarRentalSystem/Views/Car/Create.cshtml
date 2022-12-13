@@ -9,23 +9,12 @@
                 <hr />
             </div>
             <div class="mb-3">
-                <label asp-for="ModelCarId"></label>
-                <input asp-for="ModelCarId" class="form-control" placeholder="Model ID" />
-                <span asp-validation-for="ModelCarId" class="text-danger"></span>
-
-@*                <select class="form-control"
-                        asp-for="Car.ModelCarId" disabled class="form-control"
-                        asp-items="@(new SelectList(Model.Models, "Id", "Marka"))">
-                        <option value="" disabled selected>Choose a marka</option>
+                <label>Model</label>
+                <select asp-for="ModelCarId" class="form-select"
+                        asp-items="@(new SelectList(Model.ModelCar, "Id", "Model"))">
+                    <option value="" disabled selected>Choose a Model</option>
                 </select>
-                <span asp-validation-for="Car.ModelCarId" class="text-danger d-block"></span>*@
-@*
-                <label asp-for="ModelCarId"></label>
-                <select asp-for="Car.Model.Marka" class="form-select"
-                        asp-items="@(new SelectList(Model.Models.Marka))">
-                        <option value="" disabled selected>Choose Marka</option>
-                </select>*@
-
+                <span asp-validation-for="ModelCarId" class="text-danger d-block"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Color"></label>
@@ -47,9 +36,10 @@
             </div>
             <div class="mb-3">
                 <label asp-for="City"></label>
-                <input asp-for="City" class="form-control" />
+                <input asp-for="City" class="form-control" placeholder="City" />
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
+
             <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
             <a asp-controller="Car" asp-action="Index" class="btn btn-secondary" style="width:150px">
                 Back to List

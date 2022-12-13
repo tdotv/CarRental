@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using WebCarRentalSystem.Models;
 
 namespace WebCarRentalSystem.ViewModels
 {
@@ -14,5 +15,8 @@ namespace WebCarRentalSystem.ViewModels
         [DisplayName("Registration Number")]
         public string CarRegNumber { get; set; }
         public string City { get; set; }
+
+        public IEnumerable<ModelCar>? ModelCar { get; set; }
+        public Car? Car { get; set; }
     }
 }

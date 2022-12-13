@@ -10,12 +10,12 @@
             </div>
             <div class="mb-3">
                 <label asp-for="ModelCarId"></label>
-                <input asp-for="ModelCarId" class="form-control" />
+                <input asp-for="ModelCarId" class="form-control" placeholder="Model ID" />
                 <span asp-validation-for="ModelCarId" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Color"></label>
-                <input asp-for="Color" class="form-control" />
+                <input asp-for="Color" class="form-control" placeholder="Color" />
                 <span asp-validation-for="Color" class="text-danger"></span>
             </div>
             <div class="mb-3">
@@ -25,15 +25,16 @@
                     <option>True</option>
                     <option>False</option>
                 </select>
+                <span asp-validation-for="Rented" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="CarRegNumber"></label>
-                <input asp-for="CarRegNumber" class="form-control" />
+                <input asp-for="CarRegNumber" class="form-control" placeholder="Registration Number" />
                 <span asp-validation-for="CarRegNumber" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="City"></label>
-                <input asp-for="City" class="form-control" />
+                <input asp-for="City" class="form-control" placeholder="City" />
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary" style="width:150px">Update</button>

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using WebCarRentalSystem.Areas.Identity.Data;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
 using WebCarRentalSystem.ViewModels;
@@ -8,15 +10,19 @@ namespace WebCarRentalSystem.Controllers
     public class CarController : Controller
     {
         private readonly ICarRepository _carRepository;
-        public CarController(ICarRepository carRepository)
+        private readonly ApplicationDbContext _context;
+        public CarController(ICarRepository carRepository, ApplicationDbContext context)
         {
             _carRepository = carRepository;
+            _context = context;
         }
 
         public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewBag.RentedSortParm = sortOrder == "Rented" ? "rented_desc" : "Rented";
+            ViewBag.CarRegNumberSortParm = sortOrder == "CarRegNumber" ? "carRegNumber_desc" : "CarRegNumber";
             ViewData["CurrentFilter"] = searchString;
+
 
             IEnumerable<Car> cars = await _carRepository.GetAll();
 
@@ -28,6 +34,12 @@ namespace WebCarRentalSystem.Controllers
 
             switch (sortOrder)
             {
+                case "CarRegNumber":
+                    cars = cars.OrderBy(s => s.CarRegNumber);
+                    break;
+                case "carRegNumber_desc":
+                    cars = cars.OrderByDescending(s => s.CarRegNumber);
+                    break;
                 case "Rented":
                     cars = cars.OrderBy(s => s.Rented);
                     break;
@@ -39,10 +51,8 @@ namespace WebCarRentalSystem.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
+        [Authorize]
+        public IActionResult Create() => View("Create", ViewModelFactory.CreateCar(new Car(), _context.ModelCar));
 
         [HttpPost]
         public IActionResult Create(CreateCarViewModel carVM)
@@ -69,6 +79,7 @@ namespace WebCarRentalSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             var car = await _carRepository.GetByIdAsync(id);
@@ -115,6 +126,7 @@ namespace WebCarRentalSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             var carDetails = await _carRepository.GetByIdAsync(id);

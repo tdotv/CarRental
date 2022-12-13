@@ -28,9 +28,9 @@ namespace WebCarRentalSystem.Controllers
             try
             {
                 string url = "https://ipinfo.io?token=9c106f21cf32e4";
-                var info = new WebClient().DownloadString(url);
+                string info = await new HttpClient().GetStringAsync(url);
                 ipInfo = JsonConvert.DeserializeObject<IPInfo>(info);
-                RegionInfo myRegionInfo = new RegionInfo(ipInfo.Country);
+                RegionInfo myRegionInfo = new(ipInfo.Country);
                 ipInfo.Country = myRegionInfo.EnglishName;
                 homeViewModel.City = ipInfo.City;
                 homeViewModel.Region = ipInfo.Region;

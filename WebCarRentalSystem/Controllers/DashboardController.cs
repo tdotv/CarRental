@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.ViewModels;
 
@@ -12,13 +13,12 @@ namespace WebCarRentalSystem.Controllers
             _dashboardRepository = dashboardRepository;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            var userAccidents = await _dashboardRepository.GetAllUserAccidents();
             var userContracts = await _dashboardRepository.GetAllUserContracts();
             var dashboardViewModel = new DashboardViewModel()
             {
-                Accidents = userAccidents,
                 Contracts = userContracts,
             };
             

@@ -18,19 +18,22 @@
         <thead>
             <tr>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateContractSortParm"]">@Html.DisplayNameFor(model => model.DateContract)</a>
+                    ID
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateEndSortParm"]">@Html.DisplayNameFor(model => model.DateEnd)</a>
+                    Date Contract
                 </th>
                 <th>
-                    Car Registration Number
+                    Date End
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["ContractDaysSortParm"]">@Html.DisplayNameFor(model => model.ContractDays)</a>
+                    Registration Number
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]">@Html.DisplayNameFor(model => model.Price)</a>
+                    Contract Days
+                </th>
+                <th>
+                    Price
                 </th>
 
                 <th></th>
@@ -40,6 +43,9 @@
             @foreach (var obj in Model)
             {
                 <tr>
+                    <td width="20%">
+                        @obj.Id
+                    </td>
                     <td width="20%">
                         @obj.DateContract
                     </td>
