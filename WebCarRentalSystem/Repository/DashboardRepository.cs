@@ -15,29 +15,16 @@ namespace WebCarRentalSystem.Repository
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public Task<List<Accident>> GetAllUserAccidents()
-        {
-            var curUser = _httpContextAccessor.HttpContext?.User.GetUserId();
-            var userAccidents = _context.Accident.Where(r => r.ApplicationUser.Id == curUser);
-            return Task.FromResult(userAccidents.ToList());
-        }
-
         public Task<List<Contract>> GetAllUserContracts()
         {
             var curUser = _httpContextAccessor.HttpContext?.User.GetUserId();
-            var userContracts = _context.Contract.Where(r => r.ApplicationUser.Id == curUser);
+            var userContracts = _context.Contract.Include(i => i.Car.Model).Where(r => r.ApplicationUser.Id == curUser);
             return Task.FromResult(userContracts.ToList());
         }
 
-        public async Task<ApplicationUser> GetUserById(string id)
-        {
-            return await _context.Users.FindAsync(id);
-        }
+        public async Task<ApplicationUser> GetUserById(string id) => await _context.Users.FindAsync(id);
 
-        public async Task<ApplicationUser> GetUserByIdNoTracking(string id)
-        {
-            return await _context.Users.Where(u => u.Id == id).AsNoTracking().FirstOrDefaultAsync();
-        }
+        public async Task<ApplicationUser> GetUserByIdNoTracking(string id) => await _context.Users.Where(u => u.Id == id).AsNoTracking().FirstOrDefaultAsync();
 
         public bool Edit(ApplicationUser user)
         {

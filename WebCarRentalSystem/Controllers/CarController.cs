@@ -72,9 +72,7 @@ namespace WebCarRentalSystem.Controllers
                 return RedirectToAction("Index");
             }
             else
-            {
                 ModelState.AddModelError("", "Can't create new car");
-            }
             return View(carVM);
         }
 
@@ -120,9 +118,7 @@ namespace WebCarRentalSystem.Controllers
                 return RedirectToAction("Index");
             }
             else
-            {
                 return View(carVM);
-            }
         }
 
         [HttpGet]

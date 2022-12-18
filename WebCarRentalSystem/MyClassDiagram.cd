@@ -1,0 +1,428 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="WebCarRentalSystem.Areas.Identity.Data.ApplicationDbContext">
+    <Position X="21.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAQAAABAAAAAAAAAAIAAAAIAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Data\ApplicationDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.Controllers.AccidentController">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAEAAEAKAAEEAAAAAAA=</HashCode>
+      <FileName>Controllers\AccidentController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.Controllers.AccountController">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAABAAAAABAAAIAAAABAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.Controllers.CarController">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAABAAAAAAAAAAAAAEAAEACAAECAAAAAAA=</HashCode>
+      <FileName>Controllers\CarController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.Controllers.ContractController">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAABAABAAAAAAAAAAAAAEAAEgCAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\ContractController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.Controllers.DashboardController">
+    <Position X="3.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\DashboardController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.Controllers.HomeController">
+    <Position X="9" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQEAAAAAAAAAIAAAAQAAAAECAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.Controllers.ModelCarController">
+    <Position X="1.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAEAAEACAAEEAAAACAA=</HashCode>
+      <FileName>Controllers\ModelCarController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.Controllers.UserController">
+    <Position X="11" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAgAgAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\UserController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Mvc.Controller">
+    <Position X="6.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="WebCarRentalSystem.Helpers.CloudinarySettings">
+    <Position X="19" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEgAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\CloudinarySettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.Helpers.IPInfo">
+    <Position X="16" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAKgAIAAAAAAAIAAAAgAAAAAAABIAA=</HashCode>
+      <FileName>Helpers\IPInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.Models.Accident">
+    <Position X="4" Y="10.5" Width="1.5" />
+    <InheritanceLine Type="System.Object" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="14.75" Y="9.45" />
+        <Point X="14.75" Y="10.125" />
+        <Point X="4.75" Y="10.125" />
+        <Point X="4.75" Y="10.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAACQABAQAAQAAAAAAAIAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\Accident.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.Models.ApplicationUser">
+    <Position X="16.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAIAAIAIAEAAAAA=</HashCode>
+      <FileName>Models\ApplicationUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.Models.Car">
+    <Position X="8.25" Y="10.5" Width="1.5" />
+    <InheritanceLine Type="System.Object" FixedFromPoint="true">
+      <Path>
+        <Point X="14.75" Y="9.45" />
+        <Point X="14.75" Y="10.125" />
+        <Point X="9" Y="10.125" />
+        <Point X="9" Y="10.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAEAAAAAAIAAAAAAAgAAAAAAAQAAgAgAAAAAA=</HashCode>
+      <FileName>Models\Car.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.Models.Contract">
+    <Position X="10.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACCAAAAQQAAACQAAAACACAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Contract.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.Models.ErrorViewModel">
+    <Position X="14" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ErrorViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.Models.ModelCar">
+    <Position X="12.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACEAAAAAAgAAAAAAIAIAAAAAAAABAAAQgAAAAAgAA=</HashCode>
+      <FileName>Models\ModelCar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.Repository.AccidentRepository" BaseTypeListCollapsed="true">
+    <Position X="16" Y="11" Width="1.5" />
+    <InheritanceLine Type="System.Object" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="14.75" Y="9.45" />
+        <Point X="14.75" Y="10.63" />
+        <Point X="16.75" Y="10.63" />
+        <Point X="16.75" Y="11" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAJAAIAAAAAABAAAAAAAAAAAAAEAAABCAgAAAAAAIAA=</HashCode>
+      <FileName>Repository\AccidentRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WebCarRentalSystem.Repository.CarRepository" BaseTypeListCollapsed="true">
+    <Position X="27" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAJAAIAAAAAABAAAAAAAAAAAAAEAAABCQgAAAAAAIAA=</HashCode>
+      <FileName>Repository\CarRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WebCarRentalSystem.Repository.ContractRepository" BaseTypeListCollapsed="true">
+    <Position X="25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAJAAIAAAAAABAAAAAAAAAAAAAEAAABCAgAAAAAAIAA=</HashCode>
+      <FileName>Repository\ContractRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WebCarRentalSystem.Repository.DashboardRepository" BaseTypeListCollapsed="true">
+    <Position X="22.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAIABAABAAAAAAAAABAAgAAAAACAAAAAAAAAAI=</HashCode>
+      <FileName>Repository\DashboardRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WebCarRentalSystem.Repository.ModelCarRepository" BaseTypeListCollapsed="true">
+    <Position X="20.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAIAAAAAABAAAAAACAAAAAAEAAABCAgAAAAAAIAA=</HashCode>
+      <FileName>Repository\ModelCarRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WebCarRentalSystem.Repository.UserRepository" BaseTypeListCollapsed="true">
+    <Position X="18.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAIAIEAAABAAAAAAAAAAAAAEAAAACAAAAAAEAAAA=</HashCode>
+      <FileName>Repository\UserRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WebCarRentalSystem.Services.PhotoService">
+    <Position X="18" Y="1.5" Width="1.5" />
+    <InheritanceLine Type="System.Object" ManuallyRouted="true">
+      <Path>
+        <Point X="14.75" Y="7" />
+        <Point X="14.75" Y="4.654" />
+        <Point X="18.75" Y="4.654" />
+        <Point X="18.75" Y="3.44" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Services\PhotoService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Object">
+    <Position X="14" Y="7" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Identity.IdentityUser">
+    <Position X="19" Y="8.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="WebCarRentalSystem.ViewModels.CreateAccidentViewModel">
+    <Position X="12.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAQAAQAAAAAAAIAAAAIAAAAAAA=</HashCode>
+      <FileName>ViewModels\CreateAccidentViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.ViewModels.CreateCarViewModel">
+    <Position X="9" Y="14" Width="1.5" />
+    <InheritanceLine Type="System.Object" ManuallyRouted="true">
+      <Path>
+        <Point X="14.75" Y="9.45" />
+        <Point X="14.75" Y="13.633" />
+        <Point X="9.75" Y="13.633" />
+        <Point X="9.75" Y="14" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAQAAAAIAAABAAAgAAAAAAAQAAAAgAAAAAA=</HashCode>
+      <FileName>ViewModels\CreateCarViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.ViewModels.CreateContractViewModel">
+    <Position X="7.25" Y="14" Width="1.5" />
+    <InheritanceLine Type="System.Object" ManuallyRouted="true">
+      <Path>
+        <Point X="14.75" Y="9.45" />
+        <Point X="14.75" Y="13.62" />
+        <Point X="8" Y="13.62" />
+        <Point X="8" Y="14" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAACAAAABCACAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>ViewModels\CreateContractViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.ViewModels.CreateModelCarViewModel">
+    <Position X="10.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACEAAAAAAgAAAAAAIAIAAAAAAAABAAAQgAAAAAgAA=</HashCode>
+      <FileName>ViewModels\CreateModelCarViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.ViewModels.DashboardViewModel">
+    <Position X="19" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>ViewModels\DashboardViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.ViewModels.EditAccidentViewModel">
+    <Position X="14" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAABAQAAQAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\EditAccidentViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.ViewModels.EditCarViewModel">
+    <Position X="10" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAIAAAAAAAgAAAAAAAQAAAAgAAAAAA=</HashCode>
+      <FileName>ViewModels\EditCarViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.ViewModels.EditContractViewModel">
+    <Position X="16" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAQAAAAAAAAAACACAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\EditContractViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.ViewModels.EditModelCarViewModel">
+    <Position X="8" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACEAAAAAAgAAAAAAIAIAAAACAAABAAAQgAAAAAgAA=</HashCode>
+      <FileName>ViewModels\EditModelCarViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.ViewModels.EditProfileViewModel">
+    <Position X="12" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAIAAAEAAAAA=</HashCode>
+      <FileName>ViewModels\EditProfileViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.ViewModels.HomeViewModel">
+    <Position X="20.75" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACgAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\HomeViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.ViewModels.LoginViewModel">
+    <Position X="18.25" Y="18" Width="1.5" />
+    <InheritanceLine Type="System.Object" ManuallyRouted="true">
+      <Path>
+        <Point X="14.75" Y="9.45" />
+        <Point X="14.75" Y="17.125" />
+        <Point X="19" Y="17.125" />
+        <Point X="19" Y="18" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\LoginViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.ViewModels.RegisterViewModel">
+    <Position X="20.25" Y="17.75" Width="1.5" />
+    <InheritanceLine Type="System.Object" ManuallyRouted="true">
+      <Path>
+        <Point X="14.75" Y="9.45" />
+        <Point X="14.75" Y="17.125" />
+        <Point X="21" Y="17.125" />
+        <Point X="21" Y="17.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAIAA=</HashCode>
+      <FileName>ViewModels\RegisterViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.ViewModels.UserViewModel">
+    <Position X="17.25" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAABAAAAAAAAAAAAAAAYAAAEAAAAA=</HashCode>
+      <FileName>ViewModels\UserViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.ViewModels.ViewModelFactory">
+    <Position X="15.5" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAACAABAAAA=</HashCode>
+      <FileName>ViewModels\ViewModelFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.ClaimsPrincipalExtensions">
+    <Position X="5.75" Y="10.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ClaimsPrincipalExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebCarRentalSystem.Areas.Identity.Data.DataAnnotations.FutureValidationAttribute">
+    <Position X="25.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Data\DataAnnotations\FutureValidationAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.ComponentModel.DataAnnotations.ValidationAttribute">
+    <Position X="23.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="WebCarRentalSystem.Interfaces.IAccidentRepository">
+    <Position X="21.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAJAAIAAAAAAAAAAAAAAAAAAAAEAAABCAgAAAAAAIAA=</HashCode>
+      <FileName>Interfaces\IAccidentRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="WebCarRentalSystem.Interfaces.ICarRepository">
+    <Position X="24.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAJAAIAAAAAAAAAAAAAAAAAAAAEAAABCQgAAAAAAIAA=</HashCode>
+      <FileName>Interfaces\ICarRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="WebCarRentalSystem.Interfaces.IContractRepository">
+    <Position X="24.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAJAAIAAAAAAAAAAAAAAAAAAAAEAAABCAgAAAAAAIAA=</HashCode>
+      <FileName>Interfaces\IContractRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="WebCarRentalSystem.Interfaces.IDashboardRepository">
+    <Position X="23" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAIAAAAAAAAAAAAAABAAgAAAAACAAAAAAAAAAI=</HashCode>
+      <FileName>Interfaces\IDashboardRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="WebCarRentalSystem.Interfaces.IModelCarRepository">
+    <Position X="23" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAIAAAAAAAAAAAAACAAAAAAEAAABCAgAAAAAAIAA=</HashCode>
+      <FileName>Interfaces\IModelCarRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="WebCarRentalSystem.Interfaces.IPhotoService">
+    <Position X="23" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IPhotoService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="WebCarRentalSystem.Interfaces.IUserRepository">
+    <Position X="21.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAIAIEAAAAAAAAAAAAAAAAAEAAAACAAAAAAEAAAA=</HashCode>
+      <FileName>Interfaces\IUserRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe Ui" Size="9" />
+</ClassDiagram>

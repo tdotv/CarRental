@@ -18,11 +18,14 @@
                         <div class="col-auto">
                             <h3>Cars near @Model.City, @Model.Region</h3>
                         </div>
-                        <!--end of col-->
-                        <div class="col-auto">
-                            <a href="/Car/Index" class="btn btn-outline-primary">View all</a>
-                        </div>
-                        <!--end of col-->
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <!--end of col-->
+                            <div class="col-auto">
+                                <a href="/Car/Index" class="btn btn-outline-primary">View all</a>
+                            </div>
+                            <!--end of col-->
+                        }
                     </div>
                     <ul class=" row list-unstyled">
                         @foreach (var item in Model.Cars)
@@ -146,6 +149,7 @@
         <!-- FOOTER -->
         <footer class="container">
             <p class="float-right"><a href="#">Back to top</a></p>
+            <p class="float-right">Our phone number: +375257195720</p>
             <p>© 2022 Car To Moon, Inc. · <a href="/Home/Privacy">Privacy</a></p>
         </footer>
     </main>

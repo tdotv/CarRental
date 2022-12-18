@@ -155,39 +155,6 @@ namespace WebCarRentalSystem.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("WebCarRentalSystem.Models.Accident", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Collisions")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ContractId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateDtp")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Result")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("ContractId");
-
-                    b.ToTable("Accident", (string)null);
-                });
-
             modelBuilder.Entity("WebCarRentalSystem.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -292,7 +259,7 @@ namespace WebCarRentalSystem.Migrations
 
                     b.HasIndex("ModelCarId");
 
-                    b.ToTable("Car", (string)null);
+                    b.ToTable("Car");
                 });
 
             modelBuilder.Entity("WebCarRentalSystem.Models.Contract", b =>
@@ -327,7 +294,7 @@ namespace WebCarRentalSystem.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("Contract", (string)null);
+                    b.ToTable("Contract");
                 });
 
             modelBuilder.Entity("WebCarRentalSystem.Models.ModelCar", b =>
@@ -374,7 +341,7 @@ namespace WebCarRentalSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ModelCar", (string)null);
+                    b.ToTable("ModelCar");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -428,27 +395,10 @@ namespace WebCarRentalSystem.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebCarRentalSystem.Models.Accident", b =>
-                {
-                    b.HasOne("WebCarRentalSystem.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("Accidents")
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("WebCarRentalSystem.Models.Contract", "Contract")
-                        .WithMany()
-                        .HasForeignKey("ContractId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("Contract");
-                });
-
             modelBuilder.Entity("WebCarRentalSystem.Models.Car", b =>
                 {
                     b.HasOne("WebCarRentalSystem.Models.ModelCar", "Model")
-                        .WithMany("Cars")
+                        .WithMany()
                         .HasForeignKey("ModelCarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -463,7 +413,7 @@ namespace WebCarRentalSystem.Migrations
                         .HasForeignKey("ApplicationUserId");
 
                     b.HasOne("WebCarRentalSystem.Models.Car", "Car")
-                        .WithMany("Contracts")
+                        .WithMany()
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -475,19 +425,7 @@ namespace WebCarRentalSystem.Migrations
 
             modelBuilder.Entity("WebCarRentalSystem.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Accidents");
-
                     b.Navigation("Contracts");
-                });
-
-            modelBuilder.Entity("WebCarRentalSystem.Models.Car", b =>
-                {
-                    b.Navigation("Contracts");
-                });
-
-            modelBuilder.Entity("WebCarRentalSystem.Models.ModelCar", b =>
-                {
-                    b.Navigation("Cars");
                 });
 #pragma warning restore 612, 618
         }

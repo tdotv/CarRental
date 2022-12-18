@@ -60,15 +60,20 @@ namespace WebCarRentalSystem.Controllers
                     Price = contractDays.Days * 80,
                     ApplicationUserId = contractVM.ApplicationUserId
                 };
+                if (contractVM.Car.Rented == true)
+                {
+                    ModelState.AddModelError("", "Can't create new contract");
+                }
 
                 _contractRepository.Add(contract);
                 TempData["success"] = "Contract created successfully";
-                return RedirectToAction("Index");
+                if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    return RedirectToAction("Index");
+                else
+                    return RedirectToAction("Index", "Dashboard");
             }
             else
-            {
                 ModelState.AddModelError("", "Can't create new contract");
-            }
             return View(contractVM);
         }
 

@@ -22,7 +22,7 @@ namespace WebCarRentalSystem.Controllers
         public async Task<IActionResult> Index()
         {
             var users = await _userRepository.GetAllUsers();
-            List<UserViewModel> result = new List<UserViewModel>();
+            List<UserViewModel> result = new();
             foreach (var user in users)
             {
                 var userViewModel = new UserViewModel()

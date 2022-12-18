@@ -41,15 +41,9 @@ namespace WebCarRentalSystem.Repository
             return await _context.Contract.AsNoTracking().ToListAsync();
         }
 
-        public async Task<Contract> GetByIdAsync(int id)
-        {
-            return await _context.Contract?.FirstOrDefaultAsync(i => i.Id == id);
-        }
+        public async Task<Contract> GetByIdAsync(int id) => await _context.Contract.FirstOrDefaultAsync(i => i.Id == id);
 
-        public async Task<Contract> GetByIdAsyncNoTracking(int id)
-        {
-            return await _context.Contract?.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
-        }
+        public async Task<Contract> GetByIdAsyncNoTracking(int id) => await _context.Contract.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
 
         public bool Save()
         {

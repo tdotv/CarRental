@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Globalization;
-using System.Net;
 using WebCarRentalSystem.Helpers;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
@@ -12,24 +11,22 @@ namespace WebCarRentalSystem.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly ICarRepository _carRepository;
 
-        public HomeController(ILogger<HomeController> logger, ICarRepository carRepository)
+        public HomeController(ICarRepository carRepository)
         {
-            _logger = logger;
             _carRepository = carRepository;
         }
 
         public async Task<IActionResult> Index()
         {
-            var ipInfo = new IPInfo();
+            _ = new IPInfo();
             var homeViewModel = new HomeViewModel();
             try
             {
                 string url = "https://ipinfo.io?token=9c106f21cf32e4";
                 string info = await new HttpClient().GetStringAsync(url);
-                ipInfo = JsonConvert.DeserializeObject<IPInfo>(info);
+                IPInfo? ipInfo = JsonConvert.DeserializeObject<IPInfo>(info);
                 RegionInfo myRegionInfo = new(ipInfo.Country);
                 ipInfo.Country = myRegionInfo.EnglishName;
                 homeViewModel.City = ipInfo.City;

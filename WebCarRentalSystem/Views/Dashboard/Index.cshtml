@@ -3,11 +3,21 @@
 
 @model WebCarRentalSystem.ViewModels.DashboardViewModel
 
+<head>
+    <style>
+        body {
+            background-image: url("https://www.elegantthemes.com/blog/wp-content/uploads/2013/09/bg-10-full.jpg");
+            background-size:cover;
+            background-repeat:no-repeat;
+        }
+    </style>
+</head>
+
 <body>
     <div class="container p-3">
         <div class="row pt-4">
             <div class="col-6">
-                <h2 class="text-primary">User Dashboard</h2>
+                <h3 class="text-primary">User Dashboard</h3>
             </div>
         </div>
     </div>
@@ -23,11 +33,11 @@
         </div>
     </form>
 
-    <table class=" table table-bordered table-striped" style="width:100%">
+    <table class=" table table-bordered table-striped text-bg-light" style="width:100%">
         <thead>
             <tr>
                 <th>
-                    Car ID
+                    Car
                 </th>
                 <th>
                     Contract Date
@@ -48,7 +58,7 @@
             {
                 <tr>
                     <td width="17%">
-                        @obj.CarId
+                        @obj.Car.Model.Marka @obj.Car.Model.Model
                     </td>
                     <td width="17%">
                         @obj.DateContract

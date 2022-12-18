@@ -10,6 +10,6 @@
 
         public string? DYears { get; set; }
 
-        public string Telephone { get; set; }
+        public string? Telephone { get; set; }
     }
 }

@@ -22,14 +22,5 @@ namespace WebCarRentalSystem.ViewModels
                 ModelCar = models
             };
         }
-
-        public static CreateAccidentViewModel CreateAccident(Accident accident, IEnumerable<Contract> contracts)
-        {
-            return new CreateAccidentViewModel
-            {
-                Accident = accident,
-                Contract = contracts
-            };
-        }
     }
 }

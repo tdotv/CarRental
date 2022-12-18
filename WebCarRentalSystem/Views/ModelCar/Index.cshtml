@@ -1,11 +1,19 @@
 ﻿@model IEnumerable<ModelCar>
 
+<head>
+    <style>
+        body {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
 <body>
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-light">Fleet</h1>
-                <p class="lead text-muted">Here you can find a variety of models for the best machines from famous brands. We provide quality and guarantee that you will get the best ride experience \_0_0_/</p>
+                <p class="lead text-muted">Here you can find a variety of models for the best machines from famous brands. We provide quality and guarantee that you will get the best ride experience</p>
                 <p>
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {

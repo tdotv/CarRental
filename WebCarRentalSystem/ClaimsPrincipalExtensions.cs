@@ -13,7 +13,7 @@ namespace WebCarRentalSystem
                 throw new ArgumentNullException(nameof(user));
             }
 
-            return user.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return user?.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
     }
 }

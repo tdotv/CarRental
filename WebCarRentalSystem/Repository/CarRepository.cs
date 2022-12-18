@@ -43,15 +43,9 @@ namespace WebCarRentalSystem.Repository
             return await _context.Car.AsNoTracking().ToListAsync();
         }
 
-        public async Task<Car> GetByIdAsync(int id)
-        {
-            return await _context.Car.Include(i => i.Model).FirstOrDefaultAsync(i => i.Id == id);
-        }
+        public async Task<Car> GetByIdAsync(int id) => await _context.Car.Include(i => i.Model).FirstOrDefaultAsync(i => i.Id == id);
 
-        public async Task<Car> GetByIdAsyncNoTracking(int id)
-        {
-            return await _context.Car.Include(i => i.Model).AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
-        }
+        public async Task<Car> GetByIdAsyncNoTracking(int id) => await _context.Car.Include(i => i.Model).AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
 
         public async Task<IEnumerable<Car>> GetCarByCity(string city)
         {

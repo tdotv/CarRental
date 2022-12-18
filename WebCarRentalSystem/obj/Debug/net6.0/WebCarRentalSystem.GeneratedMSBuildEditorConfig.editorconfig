@@ -16,22 +16,6 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = E:\Работа\CourseWorkOOP\WebCarRentalSystem\WebCarRentalSystem
 build_property._RazorSourceGeneratorDebug = 
 
-[E:/Работа/CourseWorkOOP/WebCarRentalSystem/WebCarRentalSystem/Views/Accident/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjaWRlbnRcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[E:/Работа/CourseWorkOOP/WebCarRentalSystem/WebCarRentalSystem/Views/Accident/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjaWRlbnRcRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[E:/Работа/CourseWorkOOP/WebCarRentalSystem/WebCarRentalSystem/Views/Accident/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjaWRlbnRcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[E:/Работа/CourseWorkOOP/WebCarRentalSystem/WebCarRentalSystem/Views/Accident/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjaWRlbnRcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [E:/Работа/CourseWorkOOP/WebCarRentalSystem/WebCarRentalSystem/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

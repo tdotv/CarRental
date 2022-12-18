@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebCarRentalSystem.Areas.Identity.Data.DataAnnotations;
 
 namespace WebCarRentalSystem.Models
 {

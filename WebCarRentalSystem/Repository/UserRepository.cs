@@ -31,20 +31,11 @@ namespace WebCarRentalSystem.Repository
             return Save();
         }
 
-        public async Task<IEnumerable<ApplicationUser>> GetAllUsers()
-        {
-            return await _context.Users.ToListAsync();
-        }
+        public async Task<IEnumerable<ApplicationUser>> GetAllUsers() => await _context.Users.ToListAsync();
 
-        public async Task<IEnumerable<ApplicationUser>> GetAllUsersNoTracking()
-        {
-            return await _context.Users.AsNoTracking().ToListAsync();
-        }
+        public async Task<IEnumerable<ApplicationUser>> GetAllUsersNoTracking() =>  await _context.Users.AsNoTracking().ToListAsync();
 
-        public async Task<ApplicationUser> GetUserById(string id)
-        {
-            return await _context.Users.FindAsync(id);
-        }
+        public async Task<ApplicationUser> GetUserById(string id) => await _context.Users.FindAsync(id);
 
         public bool Save()
         {
