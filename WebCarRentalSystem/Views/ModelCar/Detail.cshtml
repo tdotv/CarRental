@@ -29,6 +29,13 @@
                 <a asp-controller="ModelCar" asp-action="Index" class="btn btn-secondary" style="width:150px">
                     Back to List
                 </a>
+                @if (Model.Car.Rented == false)
+                {
+                    <a asp-controller="Contract" asp-action="Create" class="btn btn-secondary" asp-route-id="@Model.Id" style="width:150px">
+                        Rent a Car
+                    </a>
+                }
+
             </div>
 
         </div>

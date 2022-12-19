@@ -7,7 +7,7 @@ namespace WebCarRentalSystem.Areas.Identity.Data.DataAnnotations
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext context)
         {
-            return value is DateTime dateTime && dateTime > DateTime.UtcNow
+            return value is DateTime dateTime && dateTime > DateTime.UtcNow.Date
                 ? ValidationResult.Success
                 : new ValidationResult("Date must be in the future");
         }

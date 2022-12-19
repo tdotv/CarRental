@@ -29,5 +29,8 @@ namespace WebCarRentalSystem.Models
 
         [DisplayName("Manufacture Year")]
         public string ManufactureYear { get; set; }
+
+        // This parameter is created to check is car rented
+        public Car Car { get; set; }
     }
 }

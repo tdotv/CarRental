@@ -36,7 +36,7 @@ namespace WebCarRentalSystem.Repository
             return await _context.ModelCar.ToListAsync();
         }
 
-        public async Task<ModelCar> GetByIdAsync(int id) => await _context.ModelCar?.FirstOrDefaultAsync(i => i.Id == id);
+        public async Task<ModelCar> GetByIdAsync(int id) => await _context.ModelCar?.Include(i => i.Car).FirstOrDefaultAsync(i => i.Id == id);
 
         public async Task<ModelCar> GetByIdAsyncNoTracking(int id) => await _context.ModelCar?.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
 

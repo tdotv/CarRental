@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WebCarRentalSystem.Areas.Identity.Data;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
@@ -41,6 +42,7 @@ namespace WebCarRentalSystem.Controllers
         public IActionResult Create()
         {
             var curUserId = _httpContextAccessor?.HttpContext?.User.GetUserId();
+
             return View("Create", ViewModelFactory.CreateContract(curUserId, new Contract(), _context.ModelCar));
         }
 
@@ -60,10 +62,6 @@ namespace WebCarRentalSystem.Controllers
                     Price = contractDays.Days * 80,
                     ApplicationUserId = contractVM.ApplicationUserId
                 };
-                if (contractVM.Car.Rented == true)
-                {
-                    ModelState.AddModelError("", "Can't create new contract");
-                }
 
                 _contractRepository.Add(contract);
                 TempData["success"] = "Contract created successfully";

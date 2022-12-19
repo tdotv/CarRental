@@ -257,7 +257,8 @@ namespace WebCarRentalSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ModelCarId");
+                    b.HasIndex("ModelCarId")
+                        .IsUnique();
 
                     b.ToTable("Car");
                 });
@@ -398,8 +399,8 @@ namespace WebCarRentalSystem.Migrations
             modelBuilder.Entity("WebCarRentalSystem.Models.Car", b =>
                 {
                     b.HasOne("WebCarRentalSystem.Models.ModelCar", "Model")
-                        .WithMany()
-                        .HasForeignKey("ModelCarId")
+                        .WithOne("Car")
+                        .HasForeignKey("WebCarRentalSystem.Models.Car", "ModelCarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -426,6 +427,12 @@ namespace WebCarRentalSystem.Migrations
             modelBuilder.Entity("WebCarRentalSystem.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Contracts");
+                });
+
+            modelBuilder.Entity("WebCarRentalSystem.Models.ModelCar", b =>
+                {
+                    b.Navigation("Car")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
