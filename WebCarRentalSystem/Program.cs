@@ -59,8 +59,6 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.RequireUniqueEmail = false;
 });
 
-//builder.Services.AddMvc();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

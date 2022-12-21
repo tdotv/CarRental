@@ -15,11 +15,6 @@ namespace WebCarRentalSystem.ViewModels
         [FutureValidation]
         public DateTime DateEnd { get; set; } = DateTime.Now;
 
-        [Required(ErrorMessage = "Please choose a Car")]
-        //[CarRentedValidation]
-        public int CarId { get; set; }
-        public Car? Car { get; set; }
-
         public string ApplicationUserId { get; set; }
 
         public IEnumerable<ModelCar>? ModelCar { get; set; }

@@ -19,18 +19,6 @@
                 <input asp-for="DateEnd" class="form-control" placeholder="Date End" />
                 <span asp-validation-for="DateEnd" class="text-danger"></span>
             </div>
-@*            <div class="mb-3">
-                <label>Car</label>
-                <select asp-for="CarId" class="form-select"
-                        asp-items="@(new SelectList(Model.ModelCar, "Id", "Model"))">
-                    <option value="" disabled selected>Choose a Car</option>
-                </select>
-                <span asp-validation-for="CarId" class="text-danger d-block"></span>
-            </div>*@
-
-            <div class="mb-3">
-                <input asp-for="CarId" class="form-control" />
-            </div>
 
             <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
             <a asp-controller="Dashboard" asp-action="Index" class="btn btn-secondary" style="width:150px">

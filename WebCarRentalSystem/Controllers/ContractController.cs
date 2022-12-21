@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using WebCarRentalSystem.Areas.Identity.Data;
 using WebCarRentalSystem.Interfaces;
 using WebCarRentalSystem.Models;
@@ -11,19 +10,21 @@ namespace WebCarRentalSystem.Controllers
     public class ContractController : Controller
     {
         private readonly IContractRepository _contractRepository;
+        private readonly ICarRepository _carRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ApplicationDbContext _context;
-        public ContractController(IContractRepository contractRepository, IHttpContextAccessor httpContextAccessor, ApplicationDbContext context)
+        public ContractController(IContractRepository contractRepository, IHttpContextAccessor httpContextAccessor, ApplicationDbContext context, ICarRepository carRepository)
         {
             _contractRepository = contractRepository;
             _httpContextAccessor = httpContextAccessor;
             _context = context;
+            _carRepository = carRepository;
         }
 
         [Authorize]
         public async Task<IActionResult> Index(int page = 0)
         {
-            const int PageSize = 5;
+            const int PageSize = 7;
 
             IEnumerable<Contract> contracts = await _contractRepository.GetAll();
 
@@ -42,22 +43,23 @@ namespace WebCarRentalSystem.Controllers
         public IActionResult Create()
         {
             var curUserId = _httpContextAccessor?.HttpContext?.User.GetUserId();
-
             return View("Create", ViewModelFactory.CreateContract(curUserId, new Contract(), _context.ModelCar));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CreateContractViewModel contractVM)
+        public async Task<IActionResult> Create(CreateContractViewModel contractVM, int id)
         {
+
             if (ModelState.IsValid)
             {
+                Car car = await _carRepository.GetByIdAsync(id);
                 var contractDays = contractVM.DateEnd.Subtract(contractVM.DateContract);
                 var contract = new Contract
                 {
                     DateContract = contractVM.DateContract,
                     DateEnd = contractVM.DateEnd,
-                    CarId = contractVM.CarId,
+                    CarId = car.Id,
                     ContractDays = contractDays.Days,
                     Price = contractDays.Days * 80,
                     ApplicationUserId = contractVM.ApplicationUserId

@@ -10,10 +10,12 @@ namespace WebCarRentalSystem.Controllers
     {
         private readonly IModelCarRepository _modelRepository;
         private readonly IPhotoService _photoService;
-        public ModelCarController(IModelCarRepository modelRepository, IPhotoService photoService)
+        private readonly ICarRepository _carRepository;
+        public ModelCarController(IModelCarRepository modelRepository, IPhotoService photoService, ICarRepository carRepository)
         {
             _modelRepository = modelRepository;
             _photoService = photoService;
+            _carRepository = carRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -93,14 +95,21 @@ namespace WebCarRentalSystem.Controllers
             {
                 try
                 {
-                    await _photoService.DeletePhotoAsync(userModel.Image);
+                    if (modelVM.Image != null)
+                    {
+                        var photoResult = await _photoService.AddPhotoAsync(modelVM.Image);
+                        if (!string.IsNullOrEmpty(userModel.Image))
+                        {
+                            await _photoService.DeletePhotoAsync(userModel.Image);
+                        }
+                        userModel.Image = photoResult.Url.ToString();
+                    }
                 }
                 catch (Exception)
                 {
                     ModelState.AddModelError("", "Could not delete photo");
                     return View(modelVM);
-                }
-                var photoResult = await _photoService.AddPhotoAsync(modelVM.Image);
+                }                
 
                 var model = new ModelCar
                 {
@@ -113,7 +122,7 @@ namespace WebCarRentalSystem.Controllers
                     Transmission = modelVM.Transmission,
                     EngineValue = modelVM.EngineValue,
                     ManufactureYear = modelVM.ManufactureYear,
-                    Image = photoResult.Url.ToString()
+                    Image = userModel.Image.ToString(),
                 };
                 _modelRepository.Edit(model);
                 TempData["success"] = "Model updated successfully";
@@ -157,7 +166,17 @@ namespace WebCarRentalSystem.Controllers
         public async Task<IActionResult> Detail(int id)
         {
             ModelCar model = await _modelRepository.GetByIdAsync(id);
-            return View(model);
+            Car car = await _carRepository.GetByIdAsync(id);
+            if (car == null)
+            {
+                ModelState.AddModelError("", "There is no car with such model");
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(model);
+            }
+
         }
     }
 }

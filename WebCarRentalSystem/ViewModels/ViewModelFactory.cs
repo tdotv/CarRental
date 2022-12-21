@@ -13,7 +13,7 @@ namespace WebCarRentalSystem.ViewModels
             };
         }
 
-        public static CreateContractViewModel CreateContract(string curUserId, Contract contract, IEnumerable<ModelCar> models)
+        public static CreateContractViewModel CreateContract(string curUserId,  Contract contract, IEnumerable<ModelCar> models)
         {
             return new CreateContractViewModel
             {
