@@ -33,12 +33,12 @@ namespace WebCarRentalSystem.Repository
 
         public async Task<IEnumerable<ModelCar>> GetAll()
         {
-            return await _context.ModelCar.ToListAsync();
+            return await _context.ModelCar.Include(i => i.Car).ToListAsync();
         }
 
-        public async Task<ModelCar> GetByIdAsync(int id) => await _context.ModelCar?.Include(i => i.Car).FirstOrDefaultAsync(i => i.Id == id);
+        public async Task<ModelCar> GetByIdAsync(int id) => await _context.ModelCar.Include(i => i.Car).FirstOrDefaultAsync(i => i.Id == id);
 
-        public async Task<ModelCar> GetByIdAsyncNoTracking(int id) => await _context.ModelCar?.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+        public async Task<ModelCar> GetByIdAsyncNoTracking(int id) => await _context.ModelCar.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
 
         public async Task<IEnumerable<ModelCar>> GetModelByClass(string Class)
         {

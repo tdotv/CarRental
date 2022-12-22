@@ -61,7 +61,7 @@ namespace WebCarRentalSystem.Controllers
                     DateEnd = contractVM.DateEnd,
                     CarId = car.Id,
                     ContractDays = contractDays.Days,
-                    Price = contractDays.Days * 80,
+                    Price = (decimal)(contractDays.TotalHours * 3.333),
                     ApplicationUserId = contractVM.ApplicationUserId
                 };
 
@@ -103,6 +103,7 @@ namespace WebCarRentalSystem.Controllers
                 return View("Edit", contractVM);
             }
             var contractModel = await _contractRepository.GetByIdAsyncNoTracking(id);
+            var contractDays = contractVM.DateEnd.Subtract(contractVM.DateContract);
             if (contractModel != null)
             {
                 var contract = new Contract
@@ -111,8 +112,8 @@ namespace WebCarRentalSystem.Controllers
                     DateContract = contractVM.DateContract,
                     DateEnd = contractVM.DateEnd,
                     CarId = contractVM.CarId,
-                    ContractDays = contractVM.DateEnd.Day - contractVM.DateContract.Day,
-                    Price = (contractVM.DateEnd.Day - contractVM.DateContract.Day) * 80,
+                    ContractDays = contractVM.ContractDays,
+                    Price = contractVM.Price,
                 };
                 _contractRepository.Edit(contract);
                 TempData["success"] = "Contract updated successfully";

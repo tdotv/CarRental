@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using WebCarRentalSystem.Models;
 using WebCarRentalSystem.Areas.Identity.Data.DataAnnotations;
-using Newtonsoft.Json.Linq;
 
 namespace WebCarRentalSystem.ViewModels
 {
@@ -14,6 +13,8 @@ namespace WebCarRentalSystem.ViewModels
         [DataType(DataType.Date)]
         [FutureValidation]
         public DateTime DateEnd { get; set; } = DateTime.Now;
+
+        public int CarId { get; set; }
 
         public string ApplicationUserId { get; set; }
 

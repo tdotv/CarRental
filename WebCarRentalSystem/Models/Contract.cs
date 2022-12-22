@@ -8,7 +8,9 @@ namespace WebCarRentalSystem.Models
     {
         [Key]
         public int Id { get; set; }
+        [DataType(DataType.Date)]
         public DateTime DateContract { get; set; }
+        [DataType(DataType.Date)]
         public DateTime DateEnd { get; set; }
         public decimal ContractDays { get; set; }
         public decimal Price { get; set; }
