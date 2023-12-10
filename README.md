@@ -26,8 +26,4 @@ GUI или графический интерфейс пользователя - 
 
 ![Плакат](https://user-images.githubusercontent.com/91983402/234527068-1c28798d-e533-4cd8-86b0-35a18d41d1d1.jpg)
 
-![IIS_ASP_NET](https://user-images.githubusercontent.com/91983402/236423474-1ff2e78f-72cc-4dac-a724-38913d674fc9.jpg)
-
 ![tinywow_lifecycle-of-an-aspnet-mvc-5-application_22252194_1](https://user-images.githubusercontent.com/91983402/236423855-043411fa-56eb-4cf0-8f60-036de665f518.jpg)
-
-![tinywow_lifecycle-of-an-aspnet-mvc-5-application_22252194_2](https://user-images.githubusercontent.com/91983402/236423877-58786982-95c4-4e02-a8f4-e24eb2b7d9ad.jpg)
