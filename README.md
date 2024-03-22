@@ -1,28 +1,20 @@
-## Анализ исходных данных
-Программное средство представляет собой многопоточное приложение с установлением логического соединения. Параллельная реализация сервера дает возможность обойтись без продолжительных задержек, так как не позволяет одному клиенту захватить все ресурсы. Вместо этого параллельный сервер поддерживает обмен данными сразу с несколькими клиентами для того, чтобы их запросы обрабатывались одновременно. 
+## Stack technology
+The basis of the application functionality implementation is the programming language **C#**, one of the most widely used programming languages in the world.
 
-Поэтому, с точки зрения клиента, параллельный сервер обеспечивает лучшее наблюдаемое время отклика по сравнению с последовательным сервером. Распараллеливание обработки на сервере достигается созданием отдельного потока для обработки запросов одного клиента или отдельного однопотокового процесса для обработки запросов одного клиента.
+Software technologies such as **HTML5**, **CSS3**and **JavaScript*are used to describe the user interface and data transfer within the client. 
 
-## Использование различных технологий
-Основой реализации функционала приложения является язык программирования **C#** – один из самых широко используемых языков программирования в мире.
+It is believed that **ASP.NET Core** is a powerful tool for fast web application creation, which is included in almost all known versions of the Microsoft platform. NET Framework.
 
-Для описания пользовательского интерфейса и передачи данных в рамках клиентской части используются такие программные технологии, как **HTML5**, **CSS3** и **JavaScript**. 
+**Entity**. The essence of the Entity Framework is that it is a set of technologies that can support the development of data-oriented software applications. This is an object-relational mapping (ORM) platform with open source in ADO.NET. This is part of the . NET Framework.
 
-Считается, что **ASP.NET Core** является достаточно мощным инструментом для быстрого создания веб-приложений, который входит практически во все известные на сегодня версии платформы Microsoft .NET Framework.
+**Identity Framework**. Using this framework, the developer has access to the most powerful tool to work with authorization and registration. It contains a huge number of implementable methods that simplify and optimize work. One ASP.NET identification system. ASP.NET identity can be used with all ASP.NET platforms such as ASP.NET MVC, Web forms, Web pages, Web APIs, and SignalR.
 
-**Entity**. Суть Entity Framework заключается в том, что это набор технологий, которые могут поддерживать разработку программных приложений, ориентированных на данные. Это платформа объектно-реляционного сопоставления (ORM) с открытым исходным кодом в ADO.NET. Это часть .NET Framework.
+## Termination of architecture
+The design pattern **MVC**(Model - View - Controller) is the basic, basic design pattern. It is a scheme to separate application data, user interface and control logic into three separate components: model, representation, and controller - so that each component can be modified independently.
 
-**Identity Framework**. Используя этот фреймворк, разработчик получает доступ к мощнейшему инструменту для работы с авторизацией и регистрацией. Он содержит в себе огромное количество реализуемых методов, которые упрощают и оптимизируют работу. Одна система идентификации ASP.NET. Идентификацию ASP.NET можно использовать со всеми платформами ASP.NET, такими как ASP.NET MVC, веб-формы, веб-страницы, веб-API и SignalR.
-
-## Пректирование архитектуры
-Шаблон проектирования **MVC** (Model - View - Controller) является основным, базовым шаблоном проектирования. Он представляет собой схема разделения данных приложения, пользовательского интерфейса и управляющей логики на три отдельных компонента: модель, представление и контроллер – таким образом, что модификация каждого компонента может осуществляться независимо.
-
-Структура данного проекта была реализована с помощью внутреннего разделения на 7 приложений, каждое из которых выполняет свои функции: 
+The structure of this project was realized by internal division into 7 applications, each of which performs its functions:
 
    **Controllers, Helpers, Interfaces, Migrations, Models, Repository, Services, ViewModels и Views**
-
-## Пректирование графического интерфейса
-GUI или графический интерфейс пользователя - это «лицо» программ, которые позволяют пользователям устанавливать связь с компьютерами. Графические интерфейсы пользователя представляют информацию для работы с машиной и упрощают ее использование для обычных пользователей или тех, кто не имеет никакого отношения к программированию.
 
 ![Плакат](https://user-images.githubusercontent.com/91983402/234527068-1c28798d-e533-4cd8-86b0-35a18d41d1d1.jpg)
 
